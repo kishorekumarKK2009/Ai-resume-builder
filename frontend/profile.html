@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+    --bg-app: #f3f4f6;
+    --card: #ffffff;
+    --ink: #111827;
+    --ink-soft: #1f2937;
+    --muted: #6b7280;
+    --faint: #9ca3af;
+    --accent: #f43f5e;
+    --accent-soft: #fff1f2;
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-glow: rgba(99, 102, 241, 0.12);
+    --success: #10b981;
+    --line: #e5e7eb;
+    --line-soft: #f3f4f6;
+    --surface-alt: #f9fafb;
+
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -2px rgba(0,0,0,0.03);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 10px 10px -5px rgba(0,0,0,0.03);
+    --shadow-float: 0 25px 50px -12px rgba(0,0,0,0.18);
+
+    --transition-fast: 0.15s ease;
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: var(--bg-app);
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(99,102,241,0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(244,63,94,0.06) 0%, transparent 45%);
+    color: var(--ink);
+    padding: 60px 20px;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Decorative background grid */
+body::before{
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.wrap{
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    z-index: 1;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    position: absolute;
+    top: -52px;
+    left: 0;
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: none;
+    box-shadow: var(--shadow-xs);
+    letter-spacing: 0.01em;
+}
+.back-btn.show{ display: inline-flex; align-items: center; gap: 6px; }
+.back-btn:hover{
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    transform: translateX(-3px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* CARD */
+.card{
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: 40px 36px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+@keyframes fadeUp{
+    to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+h2{
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--ink);
+}
+
+.subtitle{
+    font-family: var(--font-sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtitle::before{
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 8px var(--primary);
+}
+
+/* ---- VIEW PANEL ---- */
+.avatar-row{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--surface-alt) 0%, #fff 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line-soft);
+}
+
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(99,102,241,0.35);
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.avatar::after{
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid rgba(99,102,241,0.15);
+}
+
+.view-name{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.view-username{
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--primary);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+    transition: background 0.2s;
+}
+.row:last-of-type{ border-bottom: none; }
+.row:hover{ background: var(--surface-alt); margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: var(--radius-sm); }
+
+.row-label{
+    font-family: var(--font-sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 600;
+}
+.row-value{
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    text-align: right;
+    font-weight: 500;
+}
+
+/* ---- FORM FIELD (edit panel) ---- */
+.field{
+    margin-bottom: 18px;
+    position: relative;
+}
+.field label{
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+input{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+input:focus{
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+input::placeholder{ color: var(--faint); font-weight: 400; }
+
+/* BUTTONS */
+.btns{
+    display: flex;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+button.action{
+    flex: 1;
+    padding: 13px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background: transparent;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+button.action:active{ transform: scale(0.97); }
+
+.save{
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    box-shadow: 0 2px 4px rgba(17,24,39,0.15);
+}
+.save:hover{
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 6px 14px rgba(99,102,241,0.35);
+    transform: translateY(-1px);
+}
+
+.reset:hover{
+    background: var(--surface-alt);
+    border-color: var(--ink);
+}
+
+.logout{
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+.logout:hover{
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(244,63,94,0.3);
+    transform: translateY(-1px);
+}
+
+.hidden{ display: none !important; }
+
+/* SIGNED OUT */
+.signedout{
+    text-align: center;
+    padding: 48px 36px;
+}
+
+.signedout .signout-icon{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--surface-alt);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+    border: 1px solid var(--line);
+}
+
+.signedout p.lead{
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+.signedout p.sub{
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.signedout .btns{
+    justify-content: center;
+    max-width: 240px;
+    margin: 28px auto 0;
+}
+
+/* Responsive */
+@media (max-width: 480px){
+    .card{ padding: 32px 24px; border-radius: var(--radius-lg); }
+    h2{ font-size: 24px; }
+    .avatar-row{ padding: 12px; }
+    .avatar{ width: 52px; height: 52px; font-size: 18px; }
+    .btns{ flex-direction: column; }
+    button.action{ width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+  <button class="back-btn" id="backBtn">&larr; Back</button>
+
+  <!-- VIEW PANEL -->
+  <div class="card" id="viewPanel">
+    <h2>Profile</h2>
+    <div class="subtitle">Your account details</div>
+
+    <div class="avatar-row">
+      <div class="avatar" id="avatarInitials">KK</div>
+      <div>
+        <div class="view-name" id="viewName">Kishore Kumar</div>
+        <div class="view-username" id="viewUsername">@kishore123</div>
+      </div>
+    </div>
+
+    <div class="row"><span class="row-label">Phone</span><span class="row-value" id="viewPhone">+91 9876543210</span></div>
+    <div class="row"><span class="row-label">Age</span><span class="row-value" id="viewAge">21</span></div>
+    <div class="row"><span class="row-label">Email</span><span class="row-value" id="viewEmail">kishore@gmail.com</span></div>
+
+    <div class="btns">
+      <button class="action save" id="editBtn">Edit profile</button>
+      <button class="action logout" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+
+  <!-- EDIT PANEL -->
+  <div class="card hidden" id="editPanel">
+    <h2>Profile editor</h2>
+    <div class="subtitle">Update your details</div>
+
+    <div class="field">
+        <label for="name">Full name</label>
+        <input type="text" id="name" placeholder="Kishore Kumar">
+    </div>
+
+    <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="kishore123">
+    </div>
+
+    <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="********">
+    </div>
+
+    <div class="field">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="21">
+    </div>
+
+    <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="kishore@gmail.com">
+    </div>
+
+    <div class="field">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" placeholder="+91 9876543210">
+    </div>
+
+    <div class="btns">
+        <button class="action save" id="saveBtn">Save</button>
+        <button class="action reset" id="resetBtn">Reset</button>
+    </div>
+  </div>
+
+  <!-- SIGNED OUT PANEL -->
+  <div class="card hidden signedout" id="signedOutPanel">
+    <div class="signout-icon">✓</div>
+    <p class="lead">Signed out</p>
+    <p class="sub">You've been logged out of your profile.</p>
+    <div class="btns">
+      <button class="action save" id="reloginBtn">Log back in</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/profile.js"></script>
+
+</body>
+</html>

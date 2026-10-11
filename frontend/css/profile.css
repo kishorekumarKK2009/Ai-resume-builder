@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #f8fbff; }
+.page-shell { max-width: 820px; margin: 0 auto; padding: 2rem; }
+#profileForm { display: grid; gap: 1rem; background: white; padding: 1.8rem; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+#profileForm label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+#profileForm input { width: 100%; padding: 0.95rem; border-radius: 12px; border: 1px solid #d8dce8; }
+#profileForm button { width: 160px; padding: 0.95rem; border: none; background: #3b5bdb; color: white; border-radius: 12px; cursor: pointer; }

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/resume-templates.css">
+<style>
+/* ════════════════════════════════════════════════════════
+   RESUME BUILDER — APP SHELL DESIGN SYSTEM
+   Token system: warm paper ground, graphite ink,
+   single burnt-amber accent reserved for progress + action.
+   ════════════════════════════════════════════════════════ */
+
+:root{
+  --ink:        #21262b;
+  --ink-soft:   #4b5159;
+  --paper:      #f8f5ef;
+  --surface:    #ffffff;
+  --accent:     #bd6422;
+  --accent-deep:#9c4f16;
+  --line:       #e1dbcf;
+  --line-strong:#cfc7b8;
+  --muted:      #8a8175;
+  --soft:       #f1ebe0;
+  --danger:     #a63b3b;
+  --danger-soft:#f9e5e5;
+
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:   'Inter', Arial, sans-serif;
+  --font-mono:   'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 2px rgba(33,38,43,0.06);
+  --shadow-md: 0 6px 20px -8px rgba(33,38,43,0.18);
+  --shadow-lg: 0 16px 40px -16px rgba(33,38,43,0.24);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:var(--font-body);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(189,100,34,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  padding:40px 20px 80px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.app{width:100%;max-width:1220px;margin:0 auto;position:relative;}
+
+/* ── Header ── */
+.app-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:28px;gap:16px;flex-wrap:wrap;
+}
+.heading-block{animation:rise .5s var(--ease) both;}
+h1{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3vw,36px);
+  font-weight:600;
+  letter-spacing:0.2px;
+  line-height:1.05;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+.subtitle{
+  color:var(--muted);
+  font-size:14.5px;
+  max-width:520px;
+}
+.subtitle .tpl-tag{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--accent-deep);
+  background:var(--soft);
+  padding:1px 7px;
+  border-radius:4px;
+  margin-right:2px;
+}
+
+.back-top{
+  padding:9px 16px 9px 13px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:500;
+  font-family:var(--font-body);
+  display:inline-flex;align-items:center;gap:6px;
+  transition:background .18s var(--ease), color .18s var(--ease),
+             border-color .18s var(--ease), transform .15s var(--ease);
+  box-shadow:var(--shadow-sm);
+}
+.back-top svg{width:14px;height:14px;transition:transform .2s var(--ease);}
+.back-top:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+.back-top:hover svg{transform:translateX(-2px);}
+.back-top:active{transform:scale(.97);}
+
+/* ── Template picker ── */
+.template-picker{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin-bottom:22px;
+  animation:rise .5s var(--ease) .05s both;
+}
+.picker-group{display:flex;align-items:center;gap:8px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 14px;
+  box-shadow:var(--shadow-sm);
+}
+.picker-group label{
+  font-family:var(--font-mono);
+  font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);font-weight:500;white-space:nowrap;
+}
+.picker-group select{
+  min-width:140px;padding:7px 10px;
+  border:none;border-radius:999px;
+  background:var(--soft);color:var(--ink);font-size:13.5px;
+  font-family:var(--font-body);cursor:pointer;
+  transition:background .15s var(--ease);
+}
+.picker-group select:hover{background:var(--line);}
+.picker-group select:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.swatch{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line-strong);
+  display:inline-block;flex-shrink:0;
+}
+
+/* ── Layout ── */
+.layout{
+  display:grid;
+  grid-template-columns:minmax(320px,0.92fr) minmax(420px,1.08fr);
+  gap:26px;
+  align-items:start;
+}
+@media(max-width:880px){.layout{grid-template-columns:1fr;}}
+
+/* ── Preview ── */
+.preview-wrap{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:26px;
+  position:sticky;top:20px;align-self:flex-start;
+  max-height:calc(100vh - 40px);overflow-y:auto;
+  box-shadow:var(--shadow-md);
+  animation:rise .55s var(--ease) .08s both;
+}
+.preview-label-row{
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.preview-label{
+  font-family:var(--font-mono);
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--accent-deep);
+  position:relative;
+  padding-bottom:3px;
+}
+.preview-label::after{
+  content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  animation:underline .6s var(--ease) .3s forwards;
+}
+.preview-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px rgba(189,100,34,0.15);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+.preview{font-family:Georgia,serif;animation:fade .35s var(--ease);}
+.preview h2{font-size:23px;margin-bottom:2px;font-family:var(--font-display);}
+.preview .contact{font-family:var(--font-body);font-size:13px;color:var(--muted);margin-bottom:14px;}
+.preview h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-deep);
+  border-bottom:1px solid var(--line);padding-bottom:5px;margin:18px 0 9px;font-family:var(--font-body);font-weight:700;}
+.preview .item{margin-bottom:11px;}
+.preview .item .ititle{font-weight:bold;font-size:15px;}
+.preview .item .meta{font-family:var(--font-body);font-size:12px;color:var(--muted);}
+.skills-list{display:flex;flex-wrap:wrap;gap:6px;}
+.skills-list span{font-family:var(--font-body);font-size:12px;background:var(--soft);padding:4px 10px;border-radius:12px;}
+.empty-note{
+  font-family:var(--font-body);font-size:13.5px;color:var(--muted);
+  padding:30px 10px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius-md);
+}
+@media(max-width:880px){.preview-wrap{position:static;max-height:none;}}
+
+/* ── Panel ── */
+.panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-md);
+  display:flex;
+  animation:rise .55s var(--ease) .1s both;
+}
+
+/* progress rail — signature element */
+.progress-rail{
+  flex-shrink:0;width:46px;
+  background:var(--soft);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px 0;gap:2px;
+}
+.rail-stop{
+  display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;background:none;border:none;
+  padding:10px 0;flex:1;width:100%;
+  position:relative;
+}
+.rail-stop .rail-line{
+  position:absolute;top:-2px;left:50%;width:1px;height:14px;
+  background:var(--line-strong);transform:translateX(-50%);
+}
+.rail-stop:first-child .rail-line{display:none;}
+.rail-node{
+  width:11px;height:11px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--line-strong);
+  transition:all .25s var(--ease-spring);
+  position:relative;z-index:1;
+}
+.rail-stop.complete .rail-node{
+  background:var(--accent);border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(189,100,34,0.18);
+}
+.rail-stop.active .rail-node{
+  border-color:var(--accent);transform:scale(1.25);
+}
+.rail-count{
+  font-family:var(--font-mono);font-size:9.5px;color:var(--muted);
+  margin-top:5px;letter-spacing:.02em;
+}
+.rail-stop.complete .rail-count{color:var(--accent-deep);}
+.rail-stop:hover .rail-node{border-color:var(--accent);}
+
+.panel-body{flex:1;min-width:0;}
+.form-section{
+  padding:24px 28px;border-bottom:1px solid var(--line);
+  scroll-margin-top:20px;
+}
+.form-section:last-child{border-bottom:0;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px;}
+.form-section h2{font-family:var(--font-display);font-size:20px;font-weight:600;}
+.section-count{
+  font-family:var(--font-mono);font-size:11.5px;color:var(--muted);
+  background:var(--soft);padding:2px 8px;border-radius:6px;
+}
+.hint{font-size:13.5px;color:var(--muted);margin-bottom:18px;line-height:1.45;}
+
+/* ── Fields ── */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:5px;font-weight:600;}
+.field input,.field textarea{
+  width:100%;padding:10px 12px;
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+  font-family:var(--font-body);font-size:14px;background:#fffdf9;color:var(--ink);
+  transition:border-color .15s var(--ease), box-shadow .15s var(--ease), background .15s var(--ease);
+}
+.field textarea{resize:vertical;min-height:74px;line-height:1.5;}
+.field input:hover,.field textarea:hover{border-color:var(--line-strong);}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(189,100,34,0.12);
+  background:#fff;
+}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.row2{grid-template-columns:1fr;}}
+
+/* ── Entries ── */
+.entry{
+  border:1px solid var(--line);border-radius:var(--radius-md);
+  padding:16px;margin-bottom:13px;background:#fffdf9;
+  transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+  animation:entryIn .3s var(--ease-spring) both;
+}
+.entry:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm);}
+.entry.removing{
+  animation:entryOut .22s var(--ease) forwards;
+}
+.entry-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.entry-label{
+  font-weight:700;font-size:13.5px;
+  display:flex;align-items:center;gap:7px;
+}
+.entry-label .num{
+  font-family:var(--font-mono);font-size:11px;color:var(--surface);
+  background:var(--ink-soft);width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.remove-btn{
+  font-size:12px;padding:7px 13px;border:1px solid #e3cdc9;border-radius:8px;
+  background:#fff;color:var(--danger);cursor:pointer;font-family:var(--font-body);font-weight:500;
+  transition:background .15s var(--ease), border-color .15s var(--ease), transform .15s var(--ease);
+}
+.remove-btn:hover{background:var(--danger-soft);border-color:#e3b7b7;}
+.remove-btn:active{transform:scale(.95);}
+.add-btn{
+  font-size:13.5px;background:none;border:1.5px dashed var(--line-strong);color:var(--accent-deep);
+  padding:11px 16px;border-radius:var(--radius-sm);cursor:pointer;width:100%;
+  font-family:var(--font-body);font-weight:600;
+  transition:background .15s var(--ease), border-color .15s var(--ease), color .15s var(--ease);
+}
+.add-btn:hover{background:var(--soft);border-color:var(--accent);}
+.add-btn:active{transform:scale(.99);}
+
+/* ── AI actions ── */
+.ai-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;align-items:center;}
+.ai-btn{
+  font-size:13px;font-weight:600;background:var(--ink);border:1px solid var(--ink);color:#fff;
+  padding:9px 15px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-body);
+  display:inline-flex;align-items:center;gap:7px;
+  transition:background .15s var(--ease), transform .15s var(--ease);
+}
+.ai-btn svg{width:13px;height:13px;}
+.ai-btn:hover{background:#111418;}
+.ai-btn:active{transform:scale(.96);}
+.ai-btn.loading{pointer-events:none;opacity:.75;}
+.ai-note{font-size:12px;color:var(--muted);}
+
+/* ── Save bar ── */
+.save-bar{
+  display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:16px;
+  flex-wrap:wrap;
+}
+.status-msg{
+  font-size:12.5px;color:var(--muted);margin-right:auto;
+  font-family:var(--font-mono);
+  display:flex;align-items:center;gap:6px;
+}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:pulse 2s ease-in-out infinite;}
+.btn{
+  font-size:14px;padding:11px 22px;border-radius:var(--radius-sm);border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);cursor:pointer;font-family:var(--font-body);font-weight:500;
+  transition:border-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.btn:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);}
+.btn:active{transform:scale(.97);}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn.primary:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
+
+/* ── Download grid ── */
+.download-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px;}
+@media(max-width:520px){.download-grid{grid-template-columns:1fr;}}
+.download-btn{
+  font-size:14px;text-align:left;padding:15px;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:#fffdf9;color:var(--ink);cursor:pointer;font-family:var(--font-body);
+  transition:border-color .15s var(--ease), background .15s var(--ease), transform .15s var(--ease);
+  position:relative;overflow:hidden;
+}
+.download-btn strong{display:block;margin-bottom:4px;font-family:var(--font-display);font-size:15px;}
+.download-btn span{display:block;color:var(--muted);font-size:12px;}
+.download-btn:hover{border-color:var(--accent);background:var(--soft);transform:translateY(-1px);}
+.download-btn:active{transform:translateY(0) scale(.98);}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;bottom:28px;right:28px;
+  background:var(--ink);color:#fff;
+  padding:12px 20px;border-radius:10px;font-size:14px;font-family:var(--font-body);
+  display:flex;align-items:center;gap:9px;
+  box-shadow:var(--shadow-lg);
+  opacity:0;transform:translateY(10px) scale(.96);
+  transition:opacity .3s var(--ease),transform .3s var(--ease-spring);
+  pointer-events:none;z-index:9999;
+}
+.toast::before{
+  content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;
+}
+.toast.show{opacity:1;transform:translateY(0) scale(1);}
+
+/* ── Keyframes ── */
+@keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+@keyframes underline{to{transform:scaleX(1);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+@keyframes entryIn{from{opacity:0;transform:translateY(-6px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes entryOut{to{opacity:0;transform:translateX(8px) scale(.97);max-height:0;margin:0;padding:0;}}
+
+/* Accessibility: visible focus everywhere */
+button:focus-visible, select:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="app-header">
+    <div class="heading-block">
+      <h1>Resume Builder</h1>
+      <div class="subtitle" id="subtitle">Fill in each section — your resume updates live as you type.</div>
+    </div>
+    <button class="back-top" onclick="location.href='dashboard.html'" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back
+    </button>
+  </div>
+
+  <div class="template-picker" id="templatePicker"></div>
+
+  <div class="layout">
+    <!-- Live preview -->
+    <div class="preview-wrap">
+      <div class="preview-label-row">
+        <span class="preview-dot"></span>
+        <div class="preview-label">Live preview</div>
+      </div>
+      <div id="previewArea"><div class="empty-note">Start filling in the form — your resume will appear here.</div></div>
+    </div>
+
+    <!-- Form -->
+    <div>
+      <div class="panel">
+        <div class="progress-rail" id="progressRail"></div>
+        <div class="panel-body" id="panel"></div>
+      </div>
+      <div class="save-bar">
+        <span class="status-msg" id="statusMsg"><span class="status-dot"></span>Ready</span>
+        <button class="btn" onclick="viewHistory()" type="button">View History</button>
+        <button class="btn primary" id="saveBtn" type="button">Save resume</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/resume-templates.js"></script>
+<script>
+/* ═══════════════════════════════════════
+   CONSTANTS & STATE
+═══════════════════════════════════════ */
+const STORAGE_KEY         = 'resume_builder_data';
+const HISTORY_KEY         = 'resume_builder_history';
+const TEMPLATE_STORAGE_KEY= 'resume_builder_template';
+const COLOR_STORAGE_KEY   = 'resume_builder_color';
+
+const TEMPLATE_KEYS = ['ledger','studio','fieldnotes','eclipse','cardinal','typewriter','atlas','memo','prism','blueprint','linen','neon','herald','copper','ivory','slate','gilded','grid-mod','terra','wave'];
+const TEMPLATE_LABELS = {
+  ledger:'Ledger', studio:'Studio', fieldnotes:'Field Notes', eclipse:'Eclipse', cardinal:'Cardinal',
+  typewriter:'Typewriter', atlas:'Atlas', memo:'Memo', prism:'Prism', blueprint:'Blueprint',
+  linen:'Linen', neon:'Neon', herald:'Herald', copper:'Copper', ivory:'Ivory',
+  slate:'Slate', gilded:'Gilded', 'grid-mod':'Grid', terra:'Terra', wave:'Wave'
+};
+const COLOR_OPTIONS = [
+  {value:'#bd6422',label:'Burnt Amber'},
+  {value:'#21262b',label:'Graphite'},
+  {value:'#0f4c81',label:'Ocean Blue'},
+  {value:'#4a7c59',label:'Forest Green'},
+  {value:'#8c3f6b',label:'Plum'},
+  {value:'#b02e0c',label:'Brick Red'},
+  {value:'#005f73',label:'Teal'},
+  {value:'#5d4d7a',label:'Violet'},
+  {value:'#d9883b',label:'Copper'},
+  {value:'#3b5485',label:'Indigo'},
+];
+
+const SECTIONS = [
+  {key:'personal',   label:'Personal',   icon:'P'},
+  {key:'experience', label:'Experience', icon:'E'},
+  {key:'education',  label:'Education',  icon:'D'},
+  {key:'skills',     label:'Skills',     icon:'S'},
+  {key:'projects',   label:'Projects',   icon:'J'},
+  {key:'download',   label:'Download',   icon:'↓'},
+];
+
+let selectedTemplate = 'ledger';
+let selectedColor    = '#bd6422';
+
+const data = {
+  personal:   {name:'',title:'',email:'',phone:'',location:'',linkedin:'',portfolio:'',summary:''},
+  experience: [{role:'',company:'',location:'',type:'',start:'',end:'',desc:''}],
+  education:  [{degree:'',school:'',location:'',start:'',end:'',grade:'',notes:''}],
+  skills:     [{name:'',level:'',category:''}],
+  projects:   [{name:'',link:'',tech:'',role:'',desc:''}]
+};
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+let toastTimer;
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2600);
+}
+
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
+function esc(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+function hasValue(item, keys){
+  return keys.some(k=>String(item?.[k]||'').trim());
+}
+function splitBullets(text){
+  return String(text||'').split(/\n|;/).map(l=>l.trim().replace(/^[-*]\s*/,'')).filter(Boolean);
+}
+function setValue(path, value){
+  const parts = path.split('.');
+  let obj = data;
+  for(let i=0;i<parts.length-1;i++){
+    if(Array.isArray(obj)) obj = obj[parseInt(parts[i])];
+    else obj = obj[parts[i]];
+  }
+  obj[parts[parts.length-1]] = value;
+}
+function goBack(){
+  if(window.history.length>1) window.history.back();
+  else showToast('No previous page to go back to.');
+}
+function viewHistory(){
+  window.location.href = 'save-history.html';
+}
+function resumeFileName(ext){
+  const base=(data.personal.name||'resume').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'resume';
+  return `${base}.${ext}`;
+}
+
+/* ═══════════════════════════════════════
+   TEMPLATE PICKER
+═══════════════════════════════════════ */
+function renderTemplatePicker(){
+  const c = document.getElementById('templatePicker');
+  c.innerHTML = `
+    <div class="picker-group">
+      <label for="templateSelect">Template</label>
+      <select id="templateSelect">${TEMPLATE_KEYS.map(k=>`<option value="${k}">${TEMPLATE_LABELS[k]}</option>`).join('')}</select>
+    </div>
+    <div class="picker-group">
+      <span class="swatch" id="colorSwatch" style="background:${esc(selectedColor)}"></span>
+      <label for="colorSelect">Accent</label>
+      <select id="colorSelect">${COLOR_OPTIONS.map(o=>`<option value="${esc(o.value)}">${esc(o.label)}</option>`).join('')}</select>
+    </div>
+  `;
+  const ts = c.querySelector('#templateSelect');
+  const cs = c.querySelector('#colorSelect');
+  const sw = c.querySelector('#colorSwatch');
+  ts.value = selectedTemplate;
+  cs.value = selectedColor;
+  ts.addEventListener('change',()=>{
+    selectedTemplate = ts.value;
+    updateSubtitle();
+    renderPreview();
+    saveToLocal();
+  });
+  cs.addEventListener('change',()=>{
+    selectedColor = cs.value;
+    document.documentElement.style.setProperty('--accent', selectedColor);
+    sw.style.background = selectedColor;
+    renderPreview();
+    saveToLocal();
+  });
+}
+function updateSubtitle(){
+  document.getElementById('subtitle').innerHTML =
+    `<span class="tpl-tag">${esc(TEMPLATE_LABELS[selectedTemplate])}</span> template selected. Fill in each section — your resume updates live as you type.`;
+}
+
+/* ═══════════════════════════════════════
+   FIELD BUILDERS
+═══════════════════════════════════════ */
+function field(label, key, value, type='text', placeholder=''){
+  if(type==='textarea'){
+    return `<div class="field"><label>${esc(label)}</label><textarea data-key="${esc(key)}" placeholder="${esc(placeholder)}">${esc(value)}</textarea></div>`;
+  }
+  return `<div class="field"><label>${esc(label)}</label><input type="${type}" data-key="${esc(key)}" value="${esc(value)}" placeholder="${esc(placeholder)}"></div>`;
+}
+function block(sectionKey, title, hint, body, countHtml){
+  return `<section class="form-section" id="sec-${esc(sectionKey)}" data-section="${esc(sectionKey)}">
+    <div class="section-head">
+      <h2>${esc(title)}</h2>
+      ${countHtml||''}
+    </div>
+    <div class="hint">${esc(hint)}</div>${body}</section>`;
+}
+
+/* ═══════════════════════════════════════
+   PANEL RENDER
+═══════════════════════════════════════ */
+function ensureDefaults(){
+  if(!data.experience.length) data.experience.push({role:'',company:'',location:'',type:'',start:'',end:'',desc:''});
+  if(!data.education.length)  data.education.push({degree:'',school:'',location:'',start:'',end:'',grade:'',notes:''});
+  if(!data.skills.length)     data.skills.push({name:'',level:'',category:''});
+  if(!data.projects.length)   data.projects.push({name:'',link:'',tech:'',role:'',desc:''});
+}
+
+function sectionCompletionCount(){
+  const p = data.personal;
+  const personalFilled = ['name','title','email','summary'].filter(k=>String(p[k]||'').trim()).length;
+  const ve = data.experience.filter(i=>hasValue(i,['role','company','location','type','start','end','desc'])).length;
+  const vd = data.education.filter(i=>hasValue(i,['degree','school','location','start','end','grade','notes'])).length;
+  const vs = data.skills.filter(i=>hasValue(i,['name'])).length;
+  const vp = data.projects.filter(i=>hasValue(i,['name','link','tech','role','desc'])).length;
+  return {
+    personal:   {done: personalFilled, total: 4},
+    experience: {done: ve, total: data.experience.length},
+    education:  {done: vd, total: data.education.length},
+    skills:     {done: vs, total: data.skills.length},
+    projects:   {done: vp, total: data.projects.length},
+    download:   {done: (personalFilled||ve||vd||vp) ? 1 : 0, total: 1}
+  };
+}
+
+function renderProgressRail(){
+  const counts = sectionCompletionCount();
+  const rail = document.getElementById('progressRail');
+  rail.innerHTML = SECTIONS.map(s=>{
+    const c = counts[s.key];
+    const complete = c.total>0 && c.done>=c.total && c.done>0;
+    return `<button class="rail-stop${complete?' complete':''}" data-jump="${s.key}" type="button" title="${esc(s.label)}">
+      <span class="rail-line"></span>
+      <span class="rail-node"></span>
+      <span class="rail-count">${c.done}/${c.total}</span>
+    </button>`;
+  }).join('');
+  rail.querySelectorAll('[data-jump]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const el = document.getElementById(`sec-${btn.dataset.jump}`);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function renderPanel(){
+  ensureDefaults();
+  const p = data.personal;
+  const counts = sectionCompletionCount();
+  const countTag = (key)=>`<span class="section-count">${counts[key].done}/${counts[key].total}</span>`;
+
+  const personalHtml = `
+    <div class="row2">
+      ${field('Full name','personal.name',p.name,'text','Jane Doe')}
+      ${field('Job title / headline','personal.title',p.title,'text','Product Designer')}
+    </div>
+    <div class="row2">
+      ${field('Email','personal.email',p.email,'email','jane@email.com')}
+      ${field('Phone','personal.phone',p.phone,'tel','+91 90000 00000')}
+    </div>
+    <div class="row2">
+      ${field('Location','personal.location',p.location,'text','Coimbatore, India')}
+      ${field('LinkedIn','personal.linkedin',p.linkedin,'text','https://linkedin.com/in/jane')}
+    </div>
+    ${field('Portfolio / website','personal.portfolio',p.portfolio,'text','https://jane.dev')}
+    ${field('Summary','personal.summary',p.summary,'textarea','Short professional summary...')}
+    <div class="ai-actions">
+      <button class="ai-btn" data-ai="summary" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M8.76 15.24l-2.12 2.12m12.72 0-2.12-2.12M8.76 8.76 6.64 6.64"/></svg>
+        Generate summary
+      </button>
+      <span class="ai-note">Creates a profile from your role, skills &amp; projects.</span>
+    </div>
+  `;
+
+  const experienceHtml = data.experience.map((e,i)=>`
+    <div class="entry">
+      <div class="entry-toolbar">
+        <span class="entry-label"><span class="num">${i+1}</span>Experience</span>
+        <button class="remove-btn" data-remove="experience" data-i="${i}" type="button">Remove</button>
+      </div>
+      <div class="row2">
+        ${field('Job title',`experience.${i}.role`,e.role,'text','Software Engineer')}
+        ${field('Company',`experience.${i}.company`,e.company,'text','Acme Corp')}
+      </div>
+      <div class="row2">
+        ${field('Location',`experience.${i}.location`,e.location,'text','Chennai, India')}
+        ${field('Employment type',`experience.${i}.type`,e.type,'text','Full-time')}
+      </div>
+      <div class="row2">
+        ${field('Start date',`experience.${i}.start`,e.start,'text','Jan 2022')}
+        ${field('End date',`experience.${i}.end`,e.end,'text','Present')}
+      </div>
+      ${field('Description / achievements',`experience.${i}.desc`,e.desc,'textarea','Key responsibilities and achievements...')}
+      <div class="ai-actions">
+        <button class="ai-btn" data-ai="experience:${i}" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M8.76 15.24l-2.12 2.12m12.72 0-2.12-2.12M8.76 8.76 6.64 6.64"/></svg>
+          Write experience
+        </button>
+      </div>
+    </div>
+  `).join('') + `<button class="add-btn" data-add="experience" type="button">+ Add experience</button>`;
+
+  const educationHtml = data.education.map((e,i)=>`
+    <div class="entry">
+      <div class="entry-toolbar">
+        <span class="entry-label"><span class="num">${i+1}</span>Education</span>
+        <button class="remove-btn" data-remove="education" data-i="${i}" type="button">Remove</button>
+      </div>
+      <div class="row2">
+        ${field('Degree / certification',`education.${i}.degree`,e.degree,'text','B.Sc. Computer Science')}
+        ${field('Institution',`education.${i}.school`,e.school,'text','University Name')}
+      </div>
+      <div class="row2">
+        ${field('Location',`education.${i}.location`,e.location,'text','Coimbatore, India')}
+        ${field('Grade / CGPA',`education.${i}.grade`,e.grade,'text','8.5 CGPA')}
+      </div>
+      <div class="row2">
+        ${field('Start year',`education.${i}.start`,e.start,'text','2018')}
+        ${field('End year',`education.${i}.end`,e.end,'text','2022')}
+      </div>
+      ${field('Notes',`education.${i}.notes`,e.notes,'textarea','Honours, relevant coursework...')}
+      <div class="ai-actions">
+        <button class="ai-btn" data-ai="education:${i}" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M8.76 15.24l-2.12 2.12m12.72 0-2.12-2.12M8.76 8.76 6.64 6.64"/></svg>
+          Write education
+        </button>
+      </div>
+    </div>
+  `).join('') + `<button class="add-btn" data-add="education" type="button">+ Add education</button>`;
+
+  const skillsHtml = data.skills.map((s,i)=>`
+    <div class="entry">
+      <div class="entry-toolbar">
+        <span class="entry-label"><span class="num">${i+1}</span>Skill</span>
+        <button class="remove-btn" data-remove="skills" data-i="${i}" type="button">Remove</button>
+      </div>
+      <div class="row2">
+        ${field('Skill name',`skills.${i}.name`,s.name,'text','JavaScript')}
+        ${field('Level',`skills.${i}.level`,s.level,'text','Advanced')}
+      </div>
+      ${field('Category',`skills.${i}.category`,s.category,'text','Frontend / Backend / Design')}
+    </div>
+  `).join('') + `<button class="add-btn" data-add="skills" type="button">+ Add skill</button>`;
+
+  const projectsHtml = data.projects.map((pr,i)=>`
+    <div class="entry">
+      <div class="entry-toolbar">
+        <span class="entry-label"><span class="num">${i+1}</span>Project</span>
+        <button class="remove-btn" data-remove="projects" data-i="${i}" type="button">Remove</button>
+      </div>
+      ${field('Project name',`projects.${i}.name`,pr.name,'text','Resume Builder App')}
+      <div class="row2">
+        ${field('Link',`projects.${i}.link`,pr.link,'text','https://...')}
+        ${field('Technologies',`projects.${i}.tech`,pr.tech,'text','HTML, CSS, JS')}
+      </div>
+      ${field('Your role',`projects.${i}.role`,pr.role,'text','Frontend developer')}
+      ${field('Description',`projects.${i}.desc`,pr.desc,'textarea','What it does, how it was built...')}
+      <div class="ai-actions">
+        <button class="ai-btn" data-ai="project:${i}" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M8.76 15.24l-2.12 2.12m12.72 0-2.12-2.12M8.76 8.76 6.64 6.64"/></svg>
+          Write project
+        </button>
+      </div>
+    </div>
+  `).join('') + `<button class="add-btn" data-add="projects" type="button">+ Add project</button>`;
+
+  const downloadHtml = `
+    <div class="download-grid">
+      <button class="download-btn" onclick="downloadResume('pdf')" type="button"><strong>PDF</strong><span>Print-ready via browser</span></button>
+      <button class="download-btn" onclick="downloadResume('doc')" type="button"><strong>DOC</strong><span>Open in Word or Google Docs</span></button>
+      <button class="download-btn" onclick="downloadResume('txt')" type="button"><strong>Plain text</strong><span>Copy-paste friendly</span></button>
+      <button class="download-btn" onclick="downloadResume('json')" type="button"><strong>JSON backup</strong><span>Save and restore your data</span></button>
+    </div>
+  `;
+
+  document.getElementById('panel').innerHTML =
+    block('personal',  'Personal Info', 'Appears at the top of your resume.', personalHtml, countTag('personal')) +
+    block('experience', 'Experience',    'Add each job separately.', experienceHtml, countTag('experience')) +
+    block('education',  'Education',     'Degrees and certifications.', educationHtml, countTag('education')) +
+    block('skills',     'Skills',        'List your strongest skills.', skillsHtml, countTag('skills')) +
+    block('projects',   'Projects',      'Showcase what you have built.', projectsHtml, countTag('projects')) +
+    block('download',   'Download',      'Export your resume in your preferred format.', downloadHtml, '');
+
+  attachPanelEvents();
+  renderProgressRail();
+}
+
+function attachPanelEvents(){
+  const panel = document.getElementById('panel');
+
+  panel.querySelectorAll('[data-key]').forEach(el=>{
+    el.addEventListener('input',()=>{
+      setValue(el.dataset.key, el.value);
+      renderPreview();
+      renderProgressRail();
+      saveToLocal();
+    });
+  });
+
+  panel.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const templates = {
+        experience:{role:'',company:'',location:'',type:'',start:'',end:'',desc:''},
+        education: {degree:'',school:'',location:'',start:'',end:'',grade:'',notes:''},
+        skills:    {name:'',level:'',category:''},
+        projects:  {name:'',link:'',tech:'',role:'',desc:''}
+      };
+      data[btn.dataset.add].push({...templates[btn.dataset.add]});
+      renderPanel(); renderPreview(); saveToLocal();
+    });
+  });
+
+  panel.querySelectorAll('[data-remove]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const arr = data[btn.dataset.remove];
+      const idx = Number(btn.dataset.i);
+      if(!Array.isArray(arr)||isNaN(idx)||idx<0||idx>=arr.length) return;
+      const entryEl = btn.closest('.entry');
+      if(entryEl){
+        entryEl.classList.add('removing');
+        entryEl.addEventListener('animationend',()=>{
+          arr.splice(idx,1);
+          renderPanel(); renderPreview(); saveToLocal();
+        }, {once:true});
+      }else{
+        arr.splice(idx,1);
+        renderPanel(); renderPreview(); saveToLocal();
+      }
+    });
+  });
+
+  panel.querySelectorAll('[data-ai]').forEach(btn=>{
+    btn.addEventListener('click',()=>applyAi(btn.dataset.ai, btn));
+  });
+}
+
+/* ═══════════════════════════════════════
+   PREVIEW RENDER
+═══════════════════════════════════════ */
+function renderPreview(){
+  const p  = data.personal;
+  const ve = data.experience.filter(i=>hasValue(i,['role','company','location','type','start','end','desc']));
+  const vd = data.education.filter(i=>hasValue(i,['degree','school','location','start','end','grade','notes']));
+  const vs = data.skills.filter(i=>hasValue(i,['name']));
+  const vp = data.projects.filter(i=>hasValue(i,['name','link','tech','role','desc']));
+  const hasAny = p.name||p.title||p.summary||p.email||ve.length||vd.length||vs.length||vp.length;
+  const area = document.getElementById('previewArea');
+
+  if(!hasAny){
+    area.innerHTML = `<div class="empty-note">Start filling in the form — your resume will appear here.</div>`;
+    return;
+  }
+
+  // If full template renderers are available, use them to show a realistic preview
+  if(window.TEMPLATES && window.TEMPLATES[selectedTemplate] && typeof window.TEMPLATES[selectedTemplate].render === 'function'){
+    const tplData = {
+      fullName: p.name || 'Your Name', jobTitle: p.title || 'Job Title',
+      email: p.email||'', phone: p.phone||'', location: p.location||'', website: p.portfolio||p.linkedin||'',
+      summary: p.summary||'', skills: data.skills.map(s=>s.name).filter(Boolean),
+      experience: data.experience.map(e=>({role:e.role||'',company:e.company||'',location:e.location||'',type:e.type||'',dates:[e.start,e.end].filter(Boolean).join(' - '),bullets: splitBullets(e.desc||'')})),
+      education: data.education.map(ed=>({degree:ed.degree||'',school:ed.school||'',location:ed.location||'',dates:[ed.start,ed.end].filter(Boolean).join(' - '),grade:ed.grade||'',notes:ed.notes||''})),
+      projects: data.projects.map(pr=>({name:pr.name||'',link:pr.link||'',tech:pr.tech||'',role:pr.role||'',desc:pr.desc||''}))
+    };
+
+    const html = `<div class="preview" data-template="${esc(selectedTemplate)}">` +
+      `<div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:var(--font-mono);"><strong>Template:</strong> ${esc(TEMPLATE_LABELS[selectedTemplate]||selectedTemplate)}</div>` +
+      `<div class="template-stage" style="display:flex;justify-content:flex-start;align-items:flex-start;padding:8px;overflow:visible;">` +
+        `<div class="resume resume--${selectedTemplate}">${window.TEMPLATES[selectedTemplate].render(tplData)}</div>` +
+      `</div></div>`;
+    document.getElementById('previewArea').innerHTML = html;
+    requestAnimationFrame(()=>{
+      const stage = document.querySelector('#previewArea .template-stage');
+      const resumeEl = stage && stage.querySelector('.resume');
+      if(!stage||!resumeEl) return;
+      resumeEl.style.margin = '0';
+      resumeEl.style.transformOrigin = 'top left';
+      // compute scale to fit both width and height of the preview box
+      const availableW = Math.max(32, stage.clientWidth - 32);
+      const availableH = Math.max(200, stage.clientHeight - 32);
+      const widthScale = availableW / 816;
+      const heightScale = availableH / resumeEl.scrollHeight;
+      const scale = Math.min(1, Math.min(widthScale, heightScale));
+      resumeEl.style.transform = `scale(${scale})`;
+      // ensure stage height fits the scaled resume (avoid extra scroll)
+      stage.style.height = `${Math.max(200, resumeEl.scrollHeight * scale + 24)}px`;
+    });
+    return;
+  }
+
+  let h = `<div class="preview" data-template="${esc(selectedTemplate)}">`;
+  h += `<div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:var(--font-mono);"><strong>Template:</strong> ${esc(TEMPLATE_LABELS[selectedTemplate]||selectedTemplate)}</div>`;
+  h += `<section class="r-section"><h2 class="r-section-title">Personal Info</h2>`;
+  h += `<h2>${esc(p.name)||'Your Name'}</h2>`;
+  const contactLine = [p.title,p.location,p.email,p.phone].filter(Boolean).map(esc).join(' · ');
+  if(contactLine) h += `<div class="contact">${contactLine}</div>`;
+  const links = [p.linkedin,p.portfolio].filter(Boolean).map(esc).join(' · ');
+  if(links) h += `<div class="contact">${links}</div>`;
+  if(p.summary) h += `<p style="margin:10px 0;font-size:14px;">${esc(p.summary).replace(/\n/g,'<br>')}</p>`;
+  h += `</section>`;
+
+  if(ve.length){
+    h += `<section class="r-section"><h2 class="r-section-title">Experience</h2>`;
+    ve.forEach(e=>{
+      h += `<div class="item">
+        <div class="ititle">${esc(e.role)}${e.company?' — '+esc(e.company):''}</div>
+        <div class="meta">${[e.start,e.end].filter(Boolean).map(esc).join(' – ')}${e.location?' · '+esc(e.location):''}${e.type?' · '+esc(e.type):''}</div>
+        ${e.desc?`<div style="font-size:13px;margin-top:4px;">${esc(e.desc).replace(/\n/g,'<br>')}</div>`:''}
+      </div>`;
+    });
+    h += `</section>`;
+  }
+
+  if(vd.length){
+    h += `<section class="r-section"><h2 class="r-section-title">Education</h2>`;
+    vd.forEach(e=>{
+      h += `<div class="item">
+        <div class="ititle">${esc(e.degree)}${e.school?' — '+esc(e.school):''}</div>
+        <div class="meta">${[e.start,e.end].filter(Boolean).map(esc).join(' – ')}${e.grade?' · '+esc(e.grade):''}</div>
+        ${e.notes?`<div style="font-size:13px;margin-top:4px;">${esc(e.notes).replace(/\n/g,'<br>')}</div>`:''}
+      </div>`;
+    });
+    h += `</section>`;
+  }
+
+  if(vp.length){
+    h += `<section class="r-section"><h2 class="r-section-title">Projects</h2>`;
+    vp.forEach(pr=>{
+      h += `<div class="item">
+        <div class="ititle">${esc(pr.name)}</div>
+        ${[pr.link,pr.tech,pr.role].filter(Boolean).length?`<div class="meta">${[pr.link,pr.tech,pr.role].filter(Boolean).map(esc).join(' · ')}</div>`:''}
+        ${pr.desc?`<div style="font-size:13px;margin-top:4px;">${esc(pr.desc).replace(/\n/g,'<br>')}</div>`:''}
+      </div>`;
+    });
+    h += `</section>`;
+  }
+
+  if(vs.length){
+    h += `<section class="r-section"><h2 class="r-section-title">Skills</h2><div class="skills-list">`;
+    vs.forEach(s=>{
+      const d=[s.level,s.category].filter(Boolean).join(' / ');
+      h += `<span>${esc(s.name)}${d?' – '+esc(d):''}</span>`;
+    });
+    h += `</div></section>`;
+  }
+
+  h += `</div>`;
+  area.innerHTML = h;
+}
+
+/* ═══════════════════════════════════════
+   AI TEXT GENERATION (local, no API)
+═══════════════════════════════════════ */
+function firstFilled(arr, key){ const f=arr.find(i=>String(i?.[key]||'').trim()); return f?f[key]:''; }
+function skillNames(){ return data.skills.map(s=>s.name).filter(Boolean); }
+function val(v,fb){ return String(v||'').trim()||fb; }
+
+function genSummary(){
+  const role = val(data.personal.title, val(firstFilled(data.experience,'role'),'motivated professional'));
+  const loc  = data.personal.location ? ` based in ${data.personal.location}` : '';
+  const sk   = skillNames().slice(0,5);
+  const skTx = sk.length ? ` Skilled in ${sk.join(', ')}.` : '';
+  const pr   = firstFilled(data.projects,'name');
+  const prTx = pr ? ` Has hands-on experience with projects like ${pr}.` : '';
+  return `${role}${loc} with a focus on delivering clear, reliable, and user-focused work.${skTx}${prTx} Brings ownership and continuous learning to every project.`;
+}
+function genExperience(item){
+  const role = val(item.role, val(data.personal.title,'the assigned role'));
+  const co   = item.company ? ` at ${item.company}` : '';
+  const loc  = item.location ? ` in ${item.location}` : '';
+  const type = item.type ? ` (${item.type.toLowerCase()})` : '';
+  return `Worked as ${role}${co}${type}${loc}, handling responsibilities with attention to quality and deadlines. Contributed measurable value through organised execution and collaborative problem-solving.`;
+}
+function genEducation(item){
+  const deg  = val(item.degree,'academic program');
+  const sch  = item.school ? ` at ${item.school}` : '';
+  const grade= item.grade ? ` Achieved ${item.grade}.` : '';
+  return `Completed ${deg}${sch}, focusing on practical learning and discipline-specific fundamentals.${grade} Built strong foundations through coursework and applied projects.`;
+}
+function genProject(item){
+  const name = val(item.name,'this project');
+  const role = item.role ? ` as ${item.role}` : '';
+  const tech = item.tech ? ` using ${item.tech}` : '';
+  return `Built ${name}${role}${tech}. Designed and implemented core features with a focus on usability, maintainability, and real-world practicality.`;
+}
+
+function applyAi(action, btnEl){
+  if(btnEl) btnEl.classList.add('loading');
+
+  const run = ()=>{
+    const [type, rawIdx] = action.split(':');
+    const idx = Number(rawIdx);
+
+    if(type==='summary') data.personal.summary = genSummary();
+    if(type==='experience' && data.experience[idx]) data.experience[idx].desc  = genExperience(data.experience[idx]);
+    if(type==='education'  && data.education[idx])  data.education[idx].notes  = genEducation(data.education[idx]);
+    if(type==='project'    && data.projects[idx])   data.projects[idx].desc    = genProject(data.projects[idx]);
+    if(type==='all'){
+      if(!data.personal.summary) data.personal.summary = genSummary();
+      data.experience.forEach(i=>{ if(!i.desc)  i.desc  = genExperience(i); });
+      data.education.forEach(i=>{  if(!i.notes) i.notes = genEducation(i);  });
+      data.projects.forEach(i=>{   if(!i.desc)  i.desc  = genProject(i);    });
+    }
+
+    renderPanel(); renderPreview(); saveToLocal();
+    showToast('AI text generated ✓');
+  };
+
+  // brief delay gives the loading state somewhere to land
+  setTimeout(run, 220);
+}
+
+/* ═══════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════ */
+function saveToLocal(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(TEMPLATE_STORAGE_KEY, selectedTemplate);
+    localStorage.setItem(COLOR_STORAGE_KEY, selectedColor);
+    document.getElementById('statusMsg').innerHTML = '<span class="status-dot"></span>Draft auto-saved';
+    return true;
+  }catch(e){
+    document.getElementById('statusMsg').innerHTML = '<span class="status-dot" style="background:var(--danger)"></span>Local save unavailable';
+    return false;
+  }
+}
+
+function saveHistoryEntry(){
+  try{
+    const history = JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');
+    const entry = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+      title: data.personal.name || 'Untitled Resume',
+      role:  data.personal.title || '',
+      savedAt: new Date().toISOString(),
+      template: selectedTemplate,
+      color: selectedColor,
+      data: JSON.parse(JSON.stringify(data))
+    };
+    history.unshift(entry);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    return entry;
+  }catch(e){ return null; }
+}
+
+function loadSaved(){
+  try{
+    const tmpl = localStorage.getItem(TEMPLATE_STORAGE_KEY);
+    if(tmpl && TEMPLATE_KEYS.includes(tmpl)) selectedTemplate = tmpl;
+
+    const clr = localStorage.getItem(COLOR_STORAGE_KEY);
+    if(clr){ selectedColor = clr; document.documentElement.style.setProperty('--accent', clr); }
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const saved = JSON.parse(raw);
+    Object.assign(data.personal, saved.personal||{});
+    data.experience = saved.experience||[];
+    data.education  = saved.education||[];
+    data.skills     = saved.skills||[];
+    data.projects   = saved.projects||[];
+    document.getElementById('statusMsg').innerHTML = '<span class="status-dot"></span>Loaded your last saved resume';
+  }catch(e){ console.warn('Resume load failed',e); }
+}
+
+function loadFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  const tmpl = params.get('template');
+  if(tmpl && TEMPLATE_KEYS.includes(tmpl)){
+    selectedTemplate = tmpl;
+    localStorage.setItem(TEMPLATE_STORAGE_KEY, tmpl);
+  }
+  const clr = params.get('color');
+  if(clr){
+    selectedColor = clr;
+    document.documentElement.style.setProperty('--accent', clr);
+    localStorage.setItem(COLOR_STORAGE_KEY, clr);
+  }
+}
+
+/* ═══════════════════════════════════════
+   DOWNLOAD
+═══════════════════════════════════════ */
+async function fetchTemplateStyles(){
+  if(window.__downloadTemplateStyles) return window.__downloadTemplateStyles;
+
+  const styleSheets = Array.from(document.styleSheets);
+  for(const sheet of styleSheets){
+    try{
+      if(sheet.href && sheet.href.includes('resume-templates.css')){
+        const rules = Array.from(sheet.cssRules || []).map(r => r.cssText).join('\n');
+        if(rules) {
+          window.__downloadTemplateStyles = rules;
+          return rules;
+        }
+      }
+    }catch(e){
+      // cross-origin sheets may throw; ignore and continue
+    }
+  }
+
+  try{
+    const cssUrl = new URL('css/resume-templates.css', window.location.href).href;
+    const res = await fetch(cssUrl);
+    if(!res.ok) return '';
+    const text = await res.text();
+    window.__downloadTemplateStyles = text;
+    return text;
+  }catch(e){
+    return '';
+  }
+}
+
+async function buildResumeHtml(){
+  const p  = data.personal;
+  const ve = data.experience.filter(i=>hasValue(i,['role','company','location','type','start','end','desc']));
+  const vd = data.education.filter(i=>hasValue(i,['degree','school','location','start','end','grade','notes']));
+  const vs = data.skills.filter(i=>hasValue(i,['name']));
+  const vp = data.projects.filter(i=>hasValue(i,['name','link','tech','role','desc']));
+
+  const tplData = {
+    fullName: p.name || 'Your Name',
+    jobTitle: p.title || 'Job Title',
+    email: p.email||'',
+    phone: p.phone||'',
+    location: p.location||'',
+    website: p.portfolio||p.linkedin||'',
+    summary: p.summary||'',
+    skills: data.skills.map(s=>s.name).filter(Boolean),
+    experience: data.experience.map(e=>({role:e.role||'',company:e.company||'',dates:[e.start,e.end].filter(Boolean).join(' - '),bullets: splitBullets(e.desc||'')})),
+    education: data.education.map(ed=>({degree:ed.degree||'',school:ed.school||'',location:ed.location||'',dates:[ed.start,ed.end].filter(Boolean).join(' - '),grade:ed.grade||'',notes:ed.notes||''})),
+    projects: data.projects.map(pr=>({name:pr.name||'',link:pr.link||'',tech:pr.tech||'',role:pr.role||'',desc:pr.desc||''}))
+  };
+
+  const templateHtml = window.TEMPLATES && window.TEMPLATES[selectedTemplate] && typeof window.TEMPLATES[selectedTemplate].render === 'function'
+    ? window.TEMPLATES[selectedTemplate].render(tplData)
+    : `<div class="resume"><h1>${esc(p.name||'Your Name')}</h1><p>${esc(p.summary||'')}</p>${vp.length ? `<div class="r-section"><h2 class="r-section-title">Projects</h2>${vp.map(pr=>`<div class="item"><div class="ititle">${esc(pr.name)}${pr.role?' — '+esc(pr.role):''}</div>${pr.tech?`<div class="meta">${esc(pr.tech)}</div>`:''}${pr.desc?`<p>${esc(pr.desc).replace(/\n/g,'<br>')}</p>`:''}</div>`).join('')}</div>` : ''}</div>`;
+
+  const styles = await fetchTemplateStyles();
+  const baseHref = esc(window.location.href);
+  const pageStyles = `
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    body{margin:0;padding:0;background:#f2f2f0;}
+    .page-wrapper{padding:24px;background:#f2f2f0;display:flex;justify-content:center;}
+    .resume{background:#fff;color:#1A1D21;margin:24px 0;width:816px;box-shadow:0 0 0 1px rgba(0,0,0,.04);}
+    .resume *{box-sizing:border-box;}
+    @media print{body{background:#fff;} .page-wrapper{padding:0;background:#fff;} .resume{box-shadow:none;margin:0;width:auto;}}
+    ${styles}
+  `;
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><base href="${baseHref}"><title>${esc(p.name||'Resume')}</title><style>${pageStyles}</style><link rel="stylesheet" href="css/resume-templates.css"></head><body><div class="page-wrapper"><div class="resume resume--${esc(selectedTemplate)}">${templateHtml}</div></div></body></html>`;
+}
+
+function buildResumeText(){
+  const p  = data.personal;
+  const ve = data.experience.filter(i=>hasValue(i,['role','company','location','type','start','end','desc']));
+  const vd = data.education.filter(i=>hasValue(i,['degree','school','location','start','end','grade','notes']));
+  const vs = data.skills.filter(i=>hasValue(i,['name']));
+  const vp = data.projects.filter(i=>hasValue(i,['name','link','tech','role','desc']));
+  const lines=[];
+  lines.push(p.name||'Your Name');
+  if(p.title) lines.push(p.title);
+  const c=[p.location,p.email,p.phone].filter(Boolean).join(' | ');
+  if(c) lines.push(c);
+  if(p.summary) lines.push('','Summary',p.summary);
+  if(ve.length){
+    lines.push('','Experience');
+    ve.forEach(e=>{
+      lines.push([e.role,e.company].filter(Boolean).join(' - '));
+      if(e.start||e.end) lines.push([e.start,e.end].filter(Boolean).join(' - '));
+      if(e.desc) lines.push(e.desc);
+      lines.push('');
+    });
+  }
+  if(vd.length){
+    lines.push('Education');
+    vd.forEach(e=>{
+      lines.push([e.degree,e.school].filter(Boolean).join(' - '));
+      if(e.start||e.end) lines.push([e.start,e.end].filter(Boolean).join(' - '));
+      if(e.notes) lines.push(e.notes);
+      lines.push('');
+    });
+  }
+  if(vs.length) lines.push('Skills', vs.map(s=>s.name).join(', '),'');
+  if(vp.length){
+    lines.push('Projects');
+    vp.forEach(pr=>{
+      lines.push(pr.name);
+      if(pr.tech) lines.push(pr.tech);
+      if(pr.desc) lines.push(pr.desc);
+      lines.push('');
+    });
+  }
+  return lines.join('\n').replace(/\n{3,}/g,'\n\n').trim()+'\n';
+}
+
+function downloadBlob(content, type, filename){
+  const blob = new Blob([content],{type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function downloadResume(format){
+  saveToLocal();
+  const name = resumeFileName(format);
+
+  if(format==='pdf' || format==='doc'){
+    const html = await buildResumeHtml();
+    if(format==='pdf'){
+      const win = window.open('','_blank');
+      if(!win){ showToast('Allow popups to generate PDF'); return; }
+      win.document.open(); win.document.write(html); win.document.close();
+      win.addEventListener('load',()=>{
+        win.focus();
+        win.print();
+        showToast('PDF print dialog opened');
+      }, {once:true});
+      return;
+    }
+    downloadBlob(html,'application/msword',name);
+    showToast('DOC downloaded');
+    return;
+  }
+
+  if(format==='txt'){
+    downloadBlob(buildResumeText(),'text/plain',name);
+    showToast('Text file downloaded');
+    return;
+  }
+  if(format==='json'){
+    downloadBlob(JSON.stringify(data,null,2),'application/json',name);
+    showToast('JSON backup downloaded');
+  }
+}
+
+/* ═══════════════════════════════════════
+   SAVE BUTTON
+═══════════════════════════════════════ */
+document.getElementById('saveBtn').addEventListener('click',()=>{
+  if(saveToLocal()){
+    saveHistoryEntry();
+    const time  = new Date().toLocaleTimeString();
+    document.getElementById('statusMsg').innerHTML = `<span class="status-dot"></span>Saved at ${esc(time)}`;
+    showToast('Resume saved to history ✓');
+  }
+});
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+loadSaved();
+loadFromUrl();
+renderTemplatePicker();
+updateSubtitle();
+renderPanel();
+renderPreview();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1402 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drafted — 20 Resume Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Inconsolata:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================
+   PAGE LOADER
+===================== */
+#page-loader {
+  position: fixed; inset: 0; background: #F5F1EB; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-inner { text-align: center; }
+.loader-word { font-family: 'Fraunces', serif; font-size: 2rem; color: #1A1D21; letter-spacing: -0.02em; }
+.loader-bar { width: 120px; height: 2px; background: #D9D2C6; margin: 16px auto 0; border-radius: 2px; overflow: hidden; }
+.loader-bar-fill { height: 100%; width: 0; background: #3E5C76; border-radius: 2px; animation: loadfill 0.9s ease forwards; }
+@keyframes loadfill { to { width: 100%; } }
+
+/* =====================
+   ROOT & BASE
+===================== */
+:root {
+  --paper: #F5F1EB;
+  --paper-deep: #EDE8DF;
+  --ink: #1A1D21;
+  --ink-soft: #6B7178;
+  --line: #D9D2C6;
+  --white: #FFFFFF;
+  --blue: #3E5C76;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--paper); line-height: 1.55; }
+a { color: var(--blue); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* =====================
+   HEADER
+===================== */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 48px; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 8px;
+  position: sticky; top: 0; background: var(--paper); z-index: 100;
+}
+.wordmark { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; letter-spacing: -0.01em; }
+.header-right { display: flex; align-items: center; gap: 14px; }
+.meta-tag {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft); background: var(--paper-deep);
+  padding: 4px 10px; border-radius: 3px; border: 1px solid var(--line);
+}
+
+/* =====================
+   HERO
+===================== */
+.hero { padding: 64px 48px 48px; max-width: 860px; }
+.hero .eyebrow {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--blue); margin: 0 0 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--blue); max-width: 60px; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 600; line-height: 1.05; margin: 0 0 20px; }
+.hero p { font-size: 1.05rem; color: var(--ink-soft); max-width: 560px; margin: 0 0 28px; }
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 7px 16px; border-radius: 3px;
+  border: 1px solid var(--line); background: transparent; color: var(--ink-soft);
+  cursor: pointer; transition: all 0.15s;
+}
+.filter-btn:hover, .filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* =====================
+   GALLERY
+===================== */
+.gallery { padding: 40px 48px 96px; background: var(--paper-deep); border-top: 1px solid var(--line); }
+.gallery-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 12px; }
+.gallery-header h2 { font-family: var(--font-display); font-size: 1.7rem; margin: 0; }
+.count-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.08em; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 28px; }
+
+/* =====================
+   FOLDER CARD
+===================== */
+.folder-card { display: flex; flex-direction: column; transition: opacity 0.2s; }
+.folder-card.hidden { display: none; }
+.tab {
+  align-self: flex-start; font-family: var(--font-mono); font-size: 0.65rem;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 16px 9px; border-radius: 6px 6px 0 0; color: #fff;
+}
+.preview-window {
+  width: 100%; overflow: hidden; background: #fff;
+  box-shadow: 0 6px 20px rgba(26,29,33,0.12);
+  border-radius: 0 4px 4px 4px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  cursor: pointer;
+}
+.folder-card:hover .preview-window { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(26,29,33,0.18); }
+.preview-window .resume { width: 816px; transform-origin: top left; }
+.card-body { padding: 16px 2px 0; }
+.card-tag { font-family: var(--font-mono); font-size: 0.67rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 6px; }
+.card-body h3 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 5px; }
+.card-body .desc { color: var(--ink-soft); font-size: 0.875rem; margin: 0 0 16px; line-height: 1.5; }
+
+/* =====================
+   BUTTONS
+===================== */
+.btn {
+  font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
+  padding: 9px 18px; border-radius: 4px; border: 1.5px solid var(--ink);
+  background: transparent; color: var(--ink); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn:hover { background: var(--ink); color: #fff; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { opacity: 0.82; }
+
+/* =====================
+   FOOTER
+===================== */
+.site-footer {
+  padding: 26px 48px; border-top: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+
+/* =====================
+   RESUME BASE
+===================== */
+.resume { background: #fff; color: #1A1D21; font-family: 'Inter', sans-serif; width: 816px; min-height: 1056px; }
+.r-section { margin-bottom: 20px; }
+.r-bullets { margin: 5px 0 0; padding-left: 16px; }
+.r-bullets li { margin-bottom: 3px; font-size: 0.88rem; line-height: 1.5; }
+.r-exp { margin-bottom: 14px; }
+.r-exp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.r-exp-role { font-weight: 600; font-size: 0.92rem; }
+.r-exp-sub { color: #6B7178; font-size: 0.82rem; margin: 2px 0 0; }
+.r-exp-dates { font-size: 0.75rem; color: #6B7178; white-space: nowrap; }
+.r-edu-item { margin-bottom: 10px; }
+.r-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.r-skill { font-size: 0.7rem; padding: 4px 10px; border-radius: 3px; }
+
+/* ========================
+   TEMPLATE 1: LEDGER
+======================== */
+.resume--ledger { padding: 52px 56px; }
+.resume--ledger .r-name { font-family: 'Fraunces', serif; font-size: 2.3rem; margin: 0; line-height: 1.1; color: #23272B; }
+.resume--ledger .r-title { font-family: 'IBM Plex Mono', monospace; color: #3E5C76; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 8px 0 10px; }
+.resume--ledger .r-contact { font-size: 0.78rem; color: #6B7178; margin: 0 0 20px; }
+.resume--ledger .r-rule { border: none; border-top: 2px solid #3E5C76; margin: 0 0 24px; }
+.resume--ledger .r-columns { display: grid; grid-template-columns: 1fr 210px; gap: 36px; }
+.resume--ledger .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #D7CFC2; color: #3E5C76; }
+.resume--ledger .r-skill { background: #DCE4EC; color: #3E5C76; font-family: 'IBM Plex Mono', monospace; }
+.resume--ledger .r-side p { font-size: 0.84rem; color: #6B7178; margin: 0; line-height: 1.6; }
+
+/* ========================
+   TEMPLATE 2: STUDIO
+======================== */
+.resume--studio { padding: 0; }
+.resume--studio .r-band { background: #A8691A; color: #fff; padding: 44px 52px; }
+.resume--studio .r-name { font-family: 'Fraunces', serif; font-size: 2.5rem; margin: 0; color: #fff; }
+.resume--studio .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 7px 0 14px; font-weight: 600; }
+.resume--studio .r-band .r-contact { font-size: 0.78rem; margin: 0; }
+.resume--studio .r-body { padding: 36px 52px; }
+.resume--studio .r-summary { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 500; color: #1A1D21; margin: 0 0 28px; max-width: 90%; }
+.resume--studio .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #F3E3CC; color: #A8691A; }
+.resume--studio .r-exp { position: relative; padding-left: 20px; border-left: 2px solid #F3E3CC; margin-bottom: 14px; }
+.resume--studio .r-exp::before { content: ''; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: #A8691A; }
+.resume--studio .r-skill { background: #F3E3CC; color: #A8691A; border-radius: 14px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ========================
+   TEMPLATE 3: FIELDNOTES
+======================== */
+.resume--fieldnotes { padding: 44px 52px; }
+.resume--fieldnotes .r-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #547259; padding-bottom: 14px; margin-bottom: 22px; gap: 24px; }
+.resume--fieldnotes .r-name { font-family: 'Fraunces', serif; font-size: 2.1rem; margin: 0; }
+.resume--fieldnotes .r-title { color: #547259; font-weight: 600; margin: 4px 0 0; font-size: 0.9rem; }
+.resume--fieldnotes .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-align: right; color: #6B7178; line-height: 1.7; white-space: nowrap; }
+.resume--fieldnotes .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #E1EAE3; color: #547259; }
+.resume--fieldnotes .r-skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px 16px; margin-bottom: 20px; }
+.resume--fieldnotes .r-skill-list { font-size: 0.84rem; line-height: 1.75; color: #1A1D21; }
+
+/* ========================
+   TEMPLATE 4: ECLIPSE (dark)
+======================== */
+.resume--eclipse { padding: 52px 56px; background: #0F1117; color: #E8E6E1; }
+.resume--eclipse .r-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+.resume--eclipse .r-name { font-family: 'Fraunces', serif; font-size: 2.3rem; margin: 0; color: #E8E6E1; line-height: 1.1; }
+.resume--eclipse .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7EB8D4; margin: 8px 0 0; }
+.resume--eclipse .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A8694; text-align: right; line-height: 1.75; }
+.resume--eclipse .r-rule { border: none; border-top: 1px solid #2A3040; margin: 0 0 26px; }
+.resume--eclipse .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: #7EB8D4; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #2A3040; }
+.resume--eclipse .r-exp-role { color: #E8E6E1; }
+.resume--eclipse .r-exp-dates { color: #7A8694; }
+.resume--eclipse .r-exp-sub { color: #7A8694; }
+.resume--eclipse .r-bullets li { color: #B8B4AD; }
+.resume--eclipse .r-skill { background: #1E2533; color: #7EB8D4; border: 1px solid #2A3040; font-family: 'IBM Plex Mono', monospace; }
+.resume--eclipse .r-side p { font-size: 0.84rem; color: #9A9690; line-height: 1.65; margin: 0; }
+.resume--eclipse .r-columns { display: grid; grid-template-columns: 1fr 210px; gap: 36px; }
+
+/* ========================
+   TEMPLATE 5: CARDINAL
+======================== */
+.resume--cardinal { padding: 0; position: relative; }
+.resume--cardinal .r-stripe { width: 6px; background: #C0392B; position: absolute; top: 0; left: 0; height: 100%; }
+.resume--cardinal .r-wrap { padding: 48px 52px 48px 58px; position: relative; }
+.resume--cardinal .r-name { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin: 0 0 4px; line-height: 1.1; }
+.resume--cardinal .r-title { font-size: 0.88rem; color: #C0392B; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 8px; }
+.resume--cardinal .r-contact { font-size: 0.78rem; color: #6B7178; border-top: 1px solid #E8E0D8; border-bottom: 1px solid #E8E0D8; padding: 8px 0; margin: 0 0 24px; }
+.resume--cardinal .r-columns { display: grid; grid-template-columns: 1fr 200px; gap: 36px; }
+.resume--cardinal .r-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: #C0392B; font-family: 'IBM Plex Mono', monospace; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 2px solid #C0392B; }
+.resume--cardinal .r-skill { background: #FDECEA; color: #C0392B; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; }
+.resume--cardinal .r-side p { font-size: 0.84rem; color: #6B7178; margin: 0; line-height: 1.6; }
+
+/* ========================
+   TEMPLATE 6: TYPEWRITER
+======================== */
+.resume--typewriter { padding: 52px 60px; font-family: 'Inconsolata', monospace; background: #FAFAF8; }
+.resume--typewriter .r-name { font-family: 'Inconsolata', monospace; font-size: 2rem; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.02em; }
+.resume--typewriter .r-title { font-size: 0.85rem; font-weight: 400; color: #6B7178; margin: 0 0 10px; }
+.resume--typewriter .r-contact { font-size: 0.78rem; color: #6B7178; border-bottom: 1px dashed #C8C2B8; padding-bottom: 14px; margin: 0 0 24px; }
+.resume--typewriter .r-section-title { font-family: 'Inconsolata', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: #1A1D21; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.resume--typewriter .r-section-title::before { content: '##'; color: #C0B090; }
+.resume--typewriter .r-section-title::after { content: ''; flex: 1; border-bottom: 1px dashed #D0C8BE; }
+.resume--typewriter .r-exp-role { font-weight: 700; font-size: 0.9rem; }
+.resume--typewriter .r-exp-dates { color: #C0B090; font-size: 0.78rem; }
+.resume--typewriter .r-bullets li { font-size: 0.86rem; }
+.resume--typewriter .r-bullets li::marker { content: '> '; color: #C0B090; }
+.resume--typewriter .r-skill { background: #EEE8DC; color: #5A4F3A; font-family: 'Inconsolata', monospace; border: 1px solid #C8C2B8; border-radius: 2px; font-size: 0.72rem; }
+
+/* ========================
+   TEMPLATE 7: ATLAS
+======================== */
+.resume--atlas { padding: 0; display: grid; grid-template-columns: 220px 1fr; min-height: 1056px; }
+.resume--atlas .r-sidebar { background: #2C3E50; color: #ECF0F1; padding: 44px 28px; }
+.resume--atlas .r-main-col { padding: 44px 44px; }
+.resume--atlas .r-name { font-family: 'Fraunces', serif; font-size: 1.8rem; margin: 0 0 6px; color: #ECF0F1; line-height: 1.15; }
+.resume--atlas .r-title { font-size: 0.8rem; color: #85C1E9; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px; font-family: 'IBM Plex Mono', monospace; }
+.resume--atlas .r-contact-item { font-size: 0.78rem; color: #BDC3C7; line-height: 1.9; }
+.resume--atlas .r-sidebar .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: #85C1E9; margin: 22px 0 10px; padding-bottom: 5px; border-bottom: 1px solid #3D5166; }
+.resume--atlas .r-sidebar p { font-size: 0.82rem; color: #BDC3C7; line-height: 1.6; margin: 0; }
+.resume--atlas .r-skill { background: #3D5166; color: #85C1E9; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; margin-bottom: 4px; display: block; width: 100%; }
+.resume--atlas .r-main-col .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #2C3E50; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #2C3E50; }
+.resume--atlas .r-main-col .r-section { margin-bottom: 24px; }
+
+/* ========================
+   TEMPLATE 8: MEMO
+======================== */
+.resume--memo { padding: 48px 56px; }
+.resume--memo .r-top { border: 2px solid #1A1D21; padding: 24px 28px; margin-bottom: 28px; }
+.resume--memo .r-from-line { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: #6B7178; margin: 0 0 4px; }
+.resume--memo .r-name { font-family: 'IBM Plex Mono', monospace; font-size: 1.6rem; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.02em; }
+.resume--memo .r-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid #1A1D21; margin-top: 12px; padding-top: 12px; }
+.resume--memo .r-meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
+.resume--memo .r-meta-label { color: #6B7178; display: block; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.62rem; }
+.resume--memo .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: #1A1D21; background: #F5F1EB; padding: 5px 10px; margin: 0 0 12px; border-left: 3px solid #1A1D21; }
+.resume--memo .r-skill { background: #F5F1EB; color: #1A1D21; border: 1px solid #D9D2C6; font-family: 'IBM Plex Mono', monospace; }
+
+/* ========================
+   TEMPLATE 9: PRISM
+======================== */
+.resume--prism { padding: 0; }
+.resume--prism .r-top { background: #6C3483; padding: 44px 52px 32px; }
+.resume--prism .r-accent-bar { height: 6px; background: linear-gradient(90deg, #E91E8C 0%, #FF6B35 50%, #F9CA24 100%); }
+.resume--prism .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; color: #fff; margin: 0 0 6px; }
+.resume--prism .r-title { font-size: 0.88rem; color: #D7BDE2; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 12px; }
+.resume--prism .r-contact { font-size: 0.78rem; color: #D7BDE2; }
+.resume--prism .r-body { padding: 36px 52px; }
+.resume--prism .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #6C3483; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #D7BDE2; }
+.resume--prism .r-summary { font-size: 0.95rem; color: #4A4A4A; margin: 0 0 26px; line-height: 1.65; }
+.resume--prism .r-skill { background: #F5EEF8; color: #6C3483; border-radius: 12px; font-weight: 600; font-size: 0.72rem; }
+.resume--prism .r-exp-role { color: #1A1D21; }
+
+/* ========================
+   TEMPLATE 10: BLUEPRINT
+======================== */
+.resume--blueprint { padding: 48px 52px; background: #F4F7FB; border: 4px solid #1A5276; }
+.resume--blueprint .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: #1A5276; margin: 0 0 4px; letter-spacing: -0.02em; }
+.resume--blueprint .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #2980B9; margin: 0 0 8px; }
+.resume--blueprint .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #5D6D7E; border: 1px dashed #AEB6BF; padding: 7px 12px; display: inline-block; margin: 0 0 22px; }
+.resume--blueprint .r-rule { border: none; border-top: 2px dashed #AEB6BF; margin: 0 0 22px; }
+.resume--blueprint .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #fff; background: #1A5276; padding: 5px 10px; margin: 0 0 12px; display: inline-block; }
+.resume--blueprint .r-skill { background: #D6EAF8; color: #1A5276; border: 1px solid #AEB6BF; font-family: 'IBM Plex Mono', monospace; border-radius: 0; }
+.resume--blueprint .r-exp-role { color: #1A5276; }
+.resume--blueprint .r-exp-dates { font-family: 'IBM Plex Mono', monospace; color: #2980B9; }
+
+/* ========================
+   TEMPLATE 11: LINEN
+======================== */
+.resume--linen { padding: 60px 72px; font-family: 'DM Sans', sans-serif; }
+.resume--linen .r-name { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.02em; color: #1A1D21; }
+.resume--linen .r-tagline { font-size: 1rem; color: #8A8A8A; font-weight: 300; margin: 0 0 14px; font-style: italic; }
+.resume--linen .r-contact { font-size: 0.78rem; color: #9A9A9A; border-top: 1px solid #E8E4DE; border-bottom: 1px solid #E8E4DE; padding: 10px 0; margin: 0 0 30px; letter-spacing: 0.04em; }
+.resume--linen .r-section-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; font-style: italic; color: #1A1D21; margin: 0 0 14px; }
+.resume--linen .r-exp-role { font-weight: 600; color: #1A1D21; }
+.resume--linen .r-exp-dates { font-style: italic; color: #9A9A9A; font-size: 0.78rem; }
+.resume--linen .r-exp-sub { color: #8A8A8A; font-size: 0.84rem; }
+.resume--linen .r-skill { background: #F5F0E8; color: #5A4F3A; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; }
+
+/* ========================
+   TEMPLATE 12: NEON
+======================== */
+.resume--neon { padding: 52px 56px; background: #0D0D0D; color: #F0F0F0; font-family: 'Space Grotesk', sans-serif; }
+.resume--neon .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; margin: 0 0 4px; color: #F0F0F0; letter-spacing: -0.03em; }
+.resume--neon .r-title { font-size: 0.82rem; color: #00E5A0; text-transform: uppercase; letter-spacing: 0.14em; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; }
+.resume--neon .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #666; border-bottom: 1px solid #222; padding-bottom: 16px; margin: 0 0 24px; }
+.resume--neon .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: #00E5A0; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #222; }
+.resume--neon .r-exp-role { color: #F0F0F0; }
+.resume--neon .r-exp-dates { color: #555; font-family: 'IBM Plex Mono', monospace; }
+.resume--neon .r-exp-sub { color: #888; }
+.resume--neon .r-bullets li { color: #B0B0B0; }
+.resume--neon .r-skill { background: #111; color: #00E5A0; border: 1px solid #1A3D2E; font-family: 'IBM Plex Mono', monospace; border-radius: 2px; }
+.resume--neon .r-summary { font-size: 0.92rem; color: #888; line-height: 1.7; margin: 0 0 24px; }
+
+/* ========================
+   TEMPLATE 13: HERALD
+======================== */
+.resume--herald { padding: 40px 52px; font-family: 'Libre Baskerville', serif; }
+.resume--herald .r-masthead { text-align: center; border-bottom: 4px double #1A1D21; padding-bottom: 16px; margin-bottom: 20px; }
+.resume--herald .r-name { font-family: 'Libre Baskerville', serif; font-size: 2.8rem; font-weight: 700; margin: 0; letter-spacing: -0.01em; line-height: 1.05; }
+.resume--herald .r-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.2em; color: #6B7178; margin: 6px 0 0; font-family: 'IBM Plex Mono', monospace; }
+.resume--herald .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #6B7178; text-align: center; border-bottom: 1px solid #1A1D21; padding-bottom: 12px; margin: 0 0 20px; }
+.resume--herald .r-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; column-gap: 32px; }
+.resume--herald .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: #1A1D21; margin: 0 0 10px; padding-bottom: 4px; border-bottom: 2px solid #1A1D21; }
+.resume--herald .r-exp-role { font-family: 'Libre Baskerville', serif; font-size: 0.9rem; font-weight: 700; }
+.resume--herald .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #6B7178; }
+.resume--herald .r-bullets li { font-size: 0.84rem; line-height: 1.55; }
+.resume--herald .r-skill { background: #F5F1EB; color: #1A1D21; border: 1px solid #D9D2C6; font-family: 'IBM Plex Mono', monospace; border-radius: 0; font-size: 0.67rem; }
+
+/* ========================
+   TEMPLATE 14: COPPER
+======================== */
+.resume--copper { padding: 0; }
+.resume--copper .r-header { background: #2B1810; padding: 40px 52px 28px; position: relative; overflow: hidden; }
+.resume--copper .r-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #B87333, #E8A87C, #B87333); }
+.resume--copper .r-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #F5DEB3; margin: 0 0 4px; }
+.resume--copper .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #B87333; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 10px; }
+.resume--copper .r-contact { font-size: 0.78rem; color: #A08070; margin: 0; }
+.resume--copper .r-body { padding: 36px 52px; background: #FDF8F2; }
+.resume--copper .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #B87333; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #E8D5B8; }
+.resume--copper .r-skill { background: #FBF0E4; color: #8B5A2B; border: 1px solid #E8D5B8; font-family: 'IBM Plex Mono', monospace; border-radius: 2px; }
+.resume--copper .r-exp-role { color: #2B1810; }
+.resume--copper .r-summary { font-size: 0.92rem; color: #5A4030; margin: 0 0 24px; line-height: 1.65; font-style: italic; }
+
+/* ========================
+   TEMPLATE 15: IVORY
+======================== */
+.resume--ivory { padding: 56px 64px; font-family: 'Libre Baskerville', serif; }
+.resume--ivory .r-name { font-family: 'Libre Baskerville', serif; font-size: 2.1rem; font-weight: 700; margin: 0 0 4px; color: #1A1D21; }
+.resume--ivory .r-degrees { font-size: 0.85rem; color: #5A5048; font-style: italic; margin: 0 0 10px; }
+.resume--ivory .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A7068; border-top: 2px solid #1A1D21; border-bottom: 2px solid #1A1D21; padding: 8px 0; margin: 0 0 26px; }
+.resume--ivory .r-section { margin-bottom: 22px; }
+.resume--ivory .r-section-title { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #1A1D21; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #D4CEC6; }
+.resume--ivory .r-exp-role { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 0.9rem; }
+.resume--ivory .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A7068; }
+.resume--ivory .r-bullets li { font-size: 0.86rem; line-height: 1.6; }
+.resume--ivory .r-skill { background: #F5F0E8; color: #3A3028; border: 1px solid #D4CEC6; font-family: 'Libre Baskerville', serif; border-radius: 2px; font-size: 0.75rem; }
+
+/* ========================
+   TEMPLATE 16: SLATE
+======================== */
+.resume--slate { padding: 52px 60px; background: #F8F8F6; }
+.resume--slate .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 600; margin: 0 0 4px; color: #1A1D21; }
+.resume--slate .r-title { font-size: 0.88rem; color: #4A5568; margin: 0 0 12px; font-weight: 400; }
+.resume--slate .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #6B7280; border-top: 3px solid #1A1D21; border-bottom: 3px solid #1A1D21; padding: 10px 0; margin: 0 0 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
+.resume--slate .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #4A5568; background: #E8E8E4; padding: 6px 12px; margin: 0 0 12px; }
+.resume--slate .r-exp-role { color: #1A1D21; font-weight: 600; font-size: 0.9rem; }
+.resume--slate .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; }
+.resume--slate .r-skill { background: #E8E8E4; color: #2D3748; border-radius: 2px; font-size: 0.72rem; }
+
+/* ========================
+   TEMPLATE 17: GILDED
+======================== */
+.resume--gilded { padding: 56px 64px; background: #1A160E; color: #EDE0C4; }
+.resume--gilded .r-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin: 0 0 6px; color: #D4AF37; line-height: 1.1; }
+.resume--gilded .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: #A08040; margin: 0 0 12px; }
+.resume--gilded .r-contact { font-size: 0.78rem; color: #8A7A5A; border-bottom: 1px solid #3A3020; padding-bottom: 16px; margin: 0 0 26px; }
+.resume--gilded .r-rule { border: none; border-top: 1px solid #D4AF37; margin: 0 0 26px; opacity: 0.4; }
+.resume--gilded .r-section-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 400; font-style: italic; color: #D4AF37; margin: 0 0 12px; padding-bottom: 5px; border-bottom: 1px solid #3A3020; }
+.resume--gilded .r-exp-role { color: #EDE0C4; }
+.resume--gilded .r-exp-dates { color: #8A7A5A; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; }
+.resume--gilded .r-exp-sub { color: #8A7A5A; }
+.resume--gilded .r-bullets li { color: #C8BCA0; font-size: 0.88rem; }
+.resume--gilded .r-skill { background: #2A220E; color: #D4AF37; border: 1px solid #4A3A1A; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
+.resume--gilded .r-summary { font-size: 0.9rem; color: #A08878; line-height: 1.7; margin: 0 0 24px; }
+
+/* ========================
+   TEMPLATE 18: GRID
+======================== */
+.resume--grid-mod { padding: 0; font-family: 'DM Sans', sans-serif; }
+.resume--grid-mod .r-header { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 3px solid #1A1D21; }
+.resume--grid-mod .r-name-box { padding: 36px 36px; border-right: 3px solid #1A1D21; }
+.resume--grid-mod .r-contact-box { padding: 36px 36px; background: #1A1D21; }
+.resume--grid-mod .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 6px; line-height: 1.1; }
+.resume--grid-mod .r-title { font-size: 0.82rem; color: #6B7178; margin: 0; }
+.resume--grid-mod .r-contact-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #C0C8D0; line-height: 2; display: block; }
+.resume--grid-mod .r-body { display: grid; grid-template-columns: 1fr 1fr; }
+.resume--grid-mod .r-col { padding: 32px 36px; }
+.resume--grid-mod .r-col + .r-col { border-left: 1px solid #E8E4DE; }
+.resume--grid-mod .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #1A1D21; margin: 0 0 12px; }
+.resume--grid-mod .r-exp-role { color: #1A1D21; }
+.resume--grid-mod .r-skill { background: #F5F1EB; color: #1A1D21; border-radius: 0; border: 1px solid #D9D2C6; font-size: 0.7rem; }
+
+/* ========================
+   TEMPLATE 19: TERRA
+======================== */
+.resume--terra { padding: 0; font-family: 'DM Sans', sans-serif; }
+.resume--terra .r-top { background: #8B4513; padding: 44px 52px 32px; }
+.resume--terra .r-name { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #FFF8F0; margin: 0 0 4px; }
+.resume--terra .r-title { font-size: 0.85rem; color: #E8C9A0; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; }
+.resume--terra .r-contact { font-size: 0.78rem; color: #C09070; margin: 0; }
+.resume--terra .r-stripe { height: 8px; background: repeating-linear-gradient(90deg, #D2691E 0, #D2691E 12px, #CD853F 12px, #CD853F 24px); }
+.resume--terra .r-body { padding: 36px 52px; background: #FBF5EE; }
+.resume--terra .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #8B4513; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #D4A882; }
+.resume--terra .r-skill { background: #F5E6D8; color: #7A3B12; border-radius: 3px; font-family: 'DM Sans', sans-serif; font-size: 0.74rem; }
+.resume--terra .r-summary { font-size: 0.92rem; color: #4A3020; margin: 0 0 26px; line-height: 1.65; border-left: 3px solid #D4A882; padding-left: 14px; }
+.resume--terra .r-exp-role { color: #3A2010; }
+
+/* ========================
+   TEMPLATE 20: WAVE
+======================== */
+.resume--wave { padding: 0; font-family: 'Space Grotesk', sans-serif; overflow: hidden; }
+.resume--wave .r-top { background: #0047AB; padding: 44px 52px; position: relative; }
+.resume--wave .r-top::after { content: ''; position: absolute; bottom: -20px; left: 0; right: 0; height: 40px; background: #0047AB; clip-path: ellipse(60% 100% at 50% 0%); }
+.resume--wave .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: #fff; margin: 0 0 6px; letter-spacing: -0.03em; }
+.resume--wave .r-title { font-size: 0.85rem; color: #90BDFF; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 12px; }
+.resume--wave .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #7AAAF0; }
+.resume--wave .r-body { padding: 44px 52px 36px; background: #fff; }
+.resume--wave .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #0047AB; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #E8F0FE; }
+.resume--wave .r-summary { font-size: 0.92rem; color: #3A4A5A; margin: 0 0 26px; line-height: 1.65; }
+.resume--wave .r-skill { background: #E8F0FE; color: #0047AB; border-radius: 14px; font-weight: 600; font-size: 0.72rem; }
+.resume--wave .r-exp-role { color: #1A1D21; }
+.resume--wave .r-exp-dates { font-family: 'IBM Plex Mono', monospace; color: #0047AB; font-size: 0.72rem; }
+
+/* ========================
+   MODAL
+======================== */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,29,33,0.72); z-index: 500;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--paper); border-radius: 8px; max-width: 620px;
+  width: 100%; padding: 44px; position: relative;
+  max-height: 92vh; overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; font-size: 1.5rem;
+  cursor: pointer; color: var(--ink-soft); line-height: 1;
+  padding: 4px 8px; border-radius: 4px;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--paper-deep); }
+.modal-template-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 12px;
+}
+.modal-template-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.modal h2 { font-family: var(--font-display); font-size: 1.7rem; margin: 0 0 6px; }
+.modal .sub { font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 28px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-family: var(--font-mono); font-size: 0.68rem;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 6px;
+}
+.form-group input, .form-group textarea {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--line);
+  border-radius: 4px; font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--ink); background: var(--white);
+  transition: border-color 0.15s;
+}
+.form-group input:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(62,92,118,0.12);
+}
+.form-group textarea { height: 80px; resize: vertical; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.modal-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.modal-tip {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft);
+  background: var(--paper-deep); padding: 10px 14px; border-radius: 4px;
+  border: 1px solid var(--line); margin-bottom: 20px; line-height: 1.6;
+}
+
+/* ========================
+   PRINT STYLES
+======================== */
+@media print {
+  body { margin: 0; background: #fff; }
+  .resume { width: 100% !important; box-shadow: none !important; }
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 640px) {
+  .site-header, .hero, .gallery, .site-footer { padding-left: 20px; padding-right: 20px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .modal { padding: 24px; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-word">Drafted</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<header class="site-header">
+  <span class="wordmark">templates</span>
+  <div class="header-right">
+    <a class="btn" href="dashboard.html">Back</a>
+    <span class="meta-tag">20 templates</span>
+  </div>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">Ready to fill in</p>
+  <h1>Twenty layouts.<br>One that's yours.</h1>
+  <p>Every template is shown with sample content. Filter by role, pick the one that fits, then fill in your details.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All templates</button>
+    <button class="filter-btn" data-filter="operations">Operations</button>
+    <button class="filter-btn" data-filter="creative">Creative</button>
+    <button class="filter-btn" data-filter="technical">Technical</button>
+    <button class="filter-btn" data-filter="academic">Academic</button>
+    <button class="filter-btn" data-filter="executive">Executive</button>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <h2>Choose a template</h2>
+    <span class="count-label" id="count-label">Showing 20 of 20</span>
+  </div>
+  <div class="gallery-grid" id="gallery-grid">
+
+    <article class="folder-card" data-categories="operations executive">
+      <span class="tab" style="background:#3E5C76;">Ledger</span>
+      <div class="preview-window"><div class="resume resume--ledger" data-preview="ledger"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Operations · Finance · General</p>
+        <h3>Ledger</h3>
+        <p class="desc">Two-column layout keeping work history front and center, with a side column for summary and skills.</p>
+        <button class="btn btn-primary" data-use="ledger" data-tname="Ledger" data-color="#3E5C76">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative">
+      <span class="tab" style="background:#A8691A;">Studio</span>
+      <div class="preview-window"><div class="resume resume--studio" data-preview="studio"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Design · Marketing · Creative</p>
+        <h3>Studio</h3>
+        <p class="desc">Bold amber header band with a timeline-style experience list and rounded skill tags.</p>
+        <button class="btn btn-primary" data-use="studio" data-tname="Studio" data-color="#A8691A">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="technical">
+      <span class="tab" style="background:#547259;">Field Notes</span>
+      <div class="preview-window"><div class="resume resume--fieldnotes" data-preview="fieldnotes"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Engineering · Technical roles</p>
+        <h3>Field Notes</h3>
+        <p class="desc">Dense single column with a scannable skill grid right near the top where reviewers look first.</p>
+        <button class="btn btn-primary" data-use="fieldnotes" data-tname="Field Notes" data-color="#547259">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="technical executive">
+      <span class="tab" style="background:#0F1117;">Eclipse</span>
+      <div class="preview-window"><div class="resume resume--eclipse" data-preview="eclipse"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Tech · Senior roles · Night-mode</p>
+        <h3>Eclipse</h3>
+        <p class="desc">Dark background with cool blue accents — makes a statement without saying a word.</p>
+        <button class="btn btn-primary" data-use="eclipse" data-tname="Eclipse" data-color="#0F1117">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="executive operations">
+      <span class="tab" style="background:#C0392B;">Cardinal</span>
+      <div class="preview-window"><div class="resume resume--cardinal" data-preview="cardinal"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Leadership · Sales · Executive</p>
+        <h3>Cardinal</h3>
+        <p class="desc">Serif display name with a red accent stripe — confident and commanding.</p>
+        <button class="btn btn-primary" data-use="cardinal" data-tname="Cardinal" data-color="#C0392B">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="technical creative">
+      <span class="tab" style="background:#5A4F3A;">Typewriter</span>
+      <div class="preview-window"><div class="resume resume--typewriter" data-preview="typewriter"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Writing · Dev · Creative-technical</p>
+        <h3>Typewriter</h3>
+        <p class="desc">Monospaced throughout with markdown-style section headers — personality in the type itself.</p>
+        <button class="btn btn-primary" data-use="typewriter" data-tname="Typewriter" data-color="#5A4F3A">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="operations technical executive">
+      <span class="tab" style="background:#2C3E50;">Atlas</span>
+      <div class="preview-window"><div class="resume resume--atlas" data-preview="atlas"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Operations · Project management</p>
+        <h3>Atlas</h3>
+        <p class="desc">Dark navy sidebar carries contact and skills while the right column breathes with experience.</p>
+        <button class="btn btn-primary" data-use="atlas" data-tname="Atlas" data-color="#2C3E50">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="operations executive">
+      <span class="tab" style="background:#1A1D21;">Memo</span>
+      <div class="preview-window"><div class="resume resume--memo" data-preview="memo"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Corporate · Finance · Admin</p>
+        <h3>Memo</h3>
+        <p class="desc">Internal-document aesthetic with boxed header — familiar to any hiring manager in a large org.</p>
+        <button class="btn btn-primary" data-use="memo" data-tname="Memo" data-color="#1A1D21">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative">
+      <span class="tab" style="background:#6C3483;">Prism</span>
+      <div class="preview-window"><div class="resume resume--prism" data-preview="prism"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Creative · Branding · Digital</p>
+        <h3>Prism</h3>
+        <p class="desc">Purple header with a rainbow gradient accent bar — unmissable in a stack of white paper.</p>
+        <button class="btn btn-primary" data-use="prism" data-tname="Prism" data-color="#6C3483">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="technical">
+      <span class="tab" style="background:#1A5276;">Blueprint</span>
+      <div class="preview-window"><div class="resume resume--blueprint" data-preview="blueprint"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Engineering · Architecture · Dev</p>
+        <h3>Blueprint</h3>
+        <p class="desc">Dashed borders and grid-blue palette riff on technical drawing — deliberate for builders.</p>
+        <button class="btn btn-primary" data-use="blueprint" data-tname="Blueprint" data-color="#1A5276">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative executive">
+      <span class="tab" style="background:#3A3028;">Linen</span>
+      <div class="preview-window"><div class="resume resume--linen" data-preview="linen"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Editorial · PR · Luxury brands</p>
+        <h3>Linen</h3>
+        <p class="desc">Wide-set Playfair Display with whisper-light structure — understated elegance at full volume.</p>
+        <button class="btn btn-primary" data-use="linen" data-tname="Linen" data-color="#3A3028">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="technical creative">
+      <span class="tab" style="background:#0D0D0D;">Neon</span>
+      <div class="preview-window"><div class="resume resume--neon" data-preview="neon"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Startup · Product · Dev</p>
+        <h3>Neon</h3>
+        <p class="desc">Near-black canvas with electric green accents — for roles where standing out is the job.</p>
+        <button class="btn btn-primary" data-use="neon" data-tname="Neon" data-color="#0D0D0D">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative academic">
+      <span class="tab" style="background:#1A1D21;">Herald</span>
+      <div class="preview-window"><div class="resume resume--herald" data-preview="herald"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Journalism · Media · Publishing</p>
+        <h3>Herald</h3>
+        <p class="desc">Two-column broadsheet layout with a centered masthead — journalism typography done right.</p>
+        <button class="btn btn-primary" data-use="herald" data-tname="Herald" data-color="#1A1D21">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative executive">
+      <span class="tab" style="background:#7B3F00;">Copper</span>
+      <div class="preview-window"><div class="resume resume--copper" data-preview="copper"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Hospitality · Craft · Senior creative</p>
+        <h3>Copper</h3>
+        <p class="desc">Deep brown header with warm copper accents and a cream body — material and considered.</p>
+        <button class="btn btn-primary" data-use="copper" data-tname="Copper" data-color="#7B3F00">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="academic">
+      <span class="tab" style="background:#3A3028;">Ivory</span>
+      <div class="preview-window"><div class="resume resume--ivory" data-preview="ivory"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Academia · Research · Law</p>
+        <h3>Ivory</h3>
+        <p class="desc">Traditional serif with restrained rules — the classic academic CV, nothing omitted.</p>
+        <button class="btn btn-primary" data-use="ivory" data-tname="Ivory" data-color="#3A3028">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="operations executive academic">
+      <span class="tab" style="background:#4A5568;">Slate</span>
+      <div class="preview-window"><div class="resume resume--slate" data-preview="slate"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Government · Law · Policy</p>
+        <h3>Slate</h3>
+        <p class="desc">Clean and institutional — double-rule dividers and muted gray backgrounds signal authority.</p>
+        <button class="btn btn-primary" data-use="slate" data-tname="Slate" data-color="#4A5568">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="executive creative">
+      <span class="tab" style="background:#1A160E;">Gilded</span>
+      <div class="preview-window"><div class="resume resume--gilded" data-preview="gilded"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Finance · Luxury · C-suite</p>
+        <h3>Gilded</h3>
+        <p class="desc">Near-black background with gold Playfair headings — for roles where impression is currency.</p>
+        <button class="btn btn-primary" data-use="gilded" data-tname="Gilded" data-color="#D4AF37">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative technical">
+      <span class="tab" style="background:#1A1D21;">Grid</span>
+      <div class="preview-window"><div class="resume resume--grid-mod" data-preview="grid-mod"></div></div>
+      <div class="card-body">
+        <p class="card-tag">UX · Architecture · Design systems</p>
+        <h3>Grid</h3>
+        <p class="desc">Hard structural lines borrow from Swiss modernist print — layout as a design statement.</p>
+        <button class="btn btn-primary" data-use="grid-mod" data-tname="Grid" data-color="#1A1D21">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative operations">
+      <span class="tab" style="background:#8B4513;">Terra</span>
+      <div class="preview-window"><div class="resume resume--terra" data-preview="terra"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Food · Agriculture · Sustainability</p>
+        <h3>Terra</h3>
+        <p class="desc">Earthy saddle-brown header with a striped accent band — grounded, warm, and memorable.</p>
+        <button class="btn btn-primary" data-use="terra" data-tname="Terra" data-color="#8B4513">Use this template</button>
+      </div>
+    </article>
+
+    <article class="folder-card" data-categories="creative technical operations">
+      <span class="tab" style="background:#0047AB;">Wave</span>
+      <div class="preview-window"><div class="resume resume--wave" data-preview="wave"></div></div>
+      <div class="card-body">
+        <p class="card-tag">Product · Marketing · All-rounder</p>
+        <h3>Wave</h3>
+        <p class="desc">Cobalt blue header with a soft wave transition — energetic but grounded with clean white body.</p>
+        <button class="btn btn-primary" data-use="wave" data-tname="Wave" data-color="#0047AB">Use this template</button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span>Drafted — 20 resume templates</span>
+  <span>Single-file HTML · No dependencies · Print to PDF</span>
+</footer>
+
+<!-- FILL-IN MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+    <div class="modal-template-badge">
+      <span class="modal-template-dot" id="modal-dot"></span>
+      <span id="modal-template-name">Template</span>
+    </div>
+    <h2 id="modal-title">Fill in your details</h2>
+    <p class="sub">Complete the fields below, then click Preview &amp; Print to generate your resume.</p>
+
+    <div class="modal-tip">
+      <strong>Experience format:</strong> Role | Company | Dates | bullet one; bullet two<br>
+      One job per line. Example: <em>Product Manager | Acme Inc | 2021–2024 | Led team of 8; Shipped new checkout flow</em>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group"><label>Full name</label><input type="text" id="f-name" placeholder="Your full name"></div>
+      <div class="form-group"><label>Job title</label><input type="text" id="f-title" placeholder="e.g. Product Manager"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Email</label><input type="email" id="f-email" placeholder="you@email.com"></div>
+      <div class="form-group"><label>Phone</label><input type="text" id="f-phone" placeholder="(555) 000-0000"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Location</label><input type="text" id="f-location" placeholder="City, State"></div>
+      <div class="form-group"><label>Website / LinkedIn</label><input type="text" id="f-website" placeholder="linkedin.com/in/you"></div>
+    </div>
+    <div class="form-group"><label>Professional summary</label><textarea id="f-summary" placeholder="A few sentences about your background and goals..."></textarea></div>
+    <div class="form-group"><label>Skills (comma-separated)</label><input type="text" id="f-skills" placeholder="Python, Leadership, Figma, ..."></div>
+    <div class="form-group">
+      <label>Experience (one job per line: Role | Company | Dates | bullet; bullet)</label>
+      <textarea id="f-experience" style="height:110px;" placeholder="Product Manager | Acme Inc | 2021–2024 | Led team of 8; Shipped new checkout&#10;Associate PM | Startup Co | 2019–2021 | Ran user research; Defined roadmap"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Education (Degree | School | Dates)</label>
+      <textarea id="f-education" placeholder="B.S. Computer Science | MIT | 2015–2019"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="modal-preview-btn">Preview &amp; Print →</button>
+      <button class="btn" id="modal-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================
+   PAGE LOADER
+===================== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('page-loader').classList.add('hidden');
+  }, 800);
+});
+
+/* =====================
+   HELPERS
+===================== */
+function esc(str) {
+  return (str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function renderContact(d, sep) {
+  sep = sep || ' · ';
+  return [d.email, d.phone, d.location, d.website].filter(Boolean).map(esc).join(sep);
+}
+function renderExperience(d) {
+  if (!d.experience || !d.experience.length) return '<p style="color:#999;font-size:.84rem;">No experience added.</p>';
+  return d.experience.map(exp => `
+    <div class="r-exp">
+      <div class="r-exp-head">
+        <span class="r-exp-role">${esc(exp.role)}${exp.company ? ' — ' + esc(exp.company) : ''}</span>
+        <span class="r-exp-dates">${esc(exp.dates)}</span>
+      </div>
+      <ul class="r-bullets">${(exp.bullets||[]).filter(b=>b.trim()).map(b=>`<li>${esc(b)}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+function renderEducation(d) {
+  if (!d.education || !d.education.length) return '';
+  return d.education.filter(e=>e.degree||e.school).map(ed=>`
+    <div class="r-edu-item">
+      <div class="r-exp-head">
+        <span class="r-exp-role">${esc(ed.degree)}</span>
+        <span class="r-exp-dates">${esc(ed.dates)}</span>
+      </div>
+      ${ed.school ? `<p class="r-exp-sub">${esc(ed.school)}</p>` : ''}
+    </div>`).join('');
+}
+function renderSkillTags(d) {
+  return (d.skills||[]).filter(s=>s.trim()).map(s=>`<span class="r-skill">${esc(s)}</span>`).join('');
+}
+
+/* =====================
+   TEMPLATE RENDERERS
+===================== */
+function renderLedger(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <hr class="r-rule">
+  <div class="r-columns">
+    <div class="r-main">
+      <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+      <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    </div>
+    <div class="r-side">
+      <section class="r-section"><h2 class="r-section-title">Summary</h2><p>${esc(d.summary)}</p></section>
+      <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+    </div>
+  </div>`; }
+
+function renderStudio(d) { return `
+  <div class="r-band">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+  </div>
+  <div class="r-body">
+    <p class="r-summary">${esc(d.summary)}</p>
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+  </div>`; }
+
+function renderFieldNotes(d) {
+  const skills = (d.skills||[]).filter(s=>s.trim());
+  const cols = [[], [], []];
+  skills.forEach((s, i) => cols[i % 3].push(esc(s)));
+  return `
+  <div class="r-header">
+    <div><h1 class="r-name">${esc(d.fullName)}</h1><p class="r-title">${esc(d.jobTitle)}</p></div>
+    <div class="r-contact">${[d.email,d.phone,d.location,d.website].filter(Boolean).map(esc).join('<br>')}</div>
+  </div>
+  <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.88rem;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2>
+    <div class="r-skills-grid">${cols.map(c=>`<div class="r-skill-list">${c.join('<br>')}</div>`).join('')}</div>
+  </section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>`; }
+
+function renderEclipse(d) { return `
+  <div class="r-header-top">
+    <div><h1 class="r-name">${esc(d.fullName)}</h1><p class="r-title">${esc(d.jobTitle)}</p></div>
+    <div class="r-contact">${[d.email,d.phone,d.location].filter(Boolean).map(esc).join('<br>')}</div>
+  </div>
+  <hr class="r-rule">
+  <div class="r-columns">
+    <div class="r-main">
+      <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+      <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    </div>
+    <div class="r-side">
+      <section class="r-section"><h2 class="r-section-title">Summary</h2><p>${esc(d.summary)}</p></section>
+      <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+    </div>
+  </div>`; }
+
+function renderCardinal(d) { return `
+  <div class="r-stripe"></div>
+  <div class="r-wrap">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+    <div class="r-columns">
+      <div class="r-main">
+        <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+        <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+      </div>
+      <div class="r-side">
+        <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.84rem;color:#6B7178;line-height:1.6;margin:0;">${esc(d.summary)}</p></section>
+        <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+      </div>
+    </div>
+  </div>`; }
+
+function renderTypewriter(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.86rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderAtlas(d) { return `
+  <div class="r-sidebar">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <div class="r-section-title">Contact</div>
+    ${[d.email,d.phone,d.location,d.website].filter(Boolean).map(x=>`<div class="r-contact-item">${esc(x)}</div>`).join('')}
+    <div class="r-section-title">Summary</div>
+    <p>${esc(d.summary)}</p>
+    <div class="r-section-title">Skills</div>
+    ${(d.skills||[]).filter(s=>s.trim()).map(s=>`<span class="r-skill">${esc(s)}</span>`).join('')}
+  </div>
+  <div class="r-main-col">
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  </div>`; }
+
+function renderMemo(d) { return `
+  <div class="r-top">
+    <p class="r-from-line">Candidate record</p>
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:#6B7178;margin:0;">${esc(d.jobTitle)}</p>
+    <div class="r-meta">
+      ${d.email?`<div class="r-meta-item"><span class="r-meta-label">Email</span>${esc(d.email)}</div>`:''}
+      ${d.phone?`<div class="r-meta-item"><span class="r-meta-label">Phone</span>${esc(d.phone)}</div>`:''}
+      ${d.location?`<div class="r-meta-item"><span class="r-meta-label">Location</span>${esc(d.location)}</div>`:''}
+    </div>
+  </div>
+  <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.88rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderPrism(d) { return `
+  <div class="r-top">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+  </div>
+  <div class="r-accent-bar"></div>
+  <div class="r-body">
+    <p class="r-summary">${esc(d.summary)}</p>
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+  </div>`; }
+
+function renderBlueprint(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <hr class="r-rule">
+  <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.88rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderLinen(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-tagline">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <section class="r-section"><h2 class="r-section-title">Profile</h2><p style="font-size:.9rem;line-height:1.7;color:#5A5A5A;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderNeon(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <p class="r-summary">${esc(d.summary)}</p>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderHerald(d) { return `
+  <div class="r-masthead">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+  </div>
+  <p class="r-contact">${renderContact(d)}</p>
+  <p style="font-size:.88rem;line-height:1.65;color:#4A4A4A;margin:0 0 20px;font-family:'Libre Baskerville',serif;">${esc(d.summary)}</p>
+  <div class="r-columns">
+    <div><section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section></div>
+    <div>
+      <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+      <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+    </div>
+  </div>`; }
+
+function renderCopper(d) { return `
+  <div class="r-header">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+  </div>
+  <div class="r-body">
+    <p class="r-summary">${esc(d.summary)}</p>
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+  </div>`; }
+
+function renderIvory(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-degrees">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <section class="r-section"><h2 class="r-section-title">Profile</h2><p style="font-size:.88rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderSlate(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <div class="r-contact">${[d.email,d.phone,d.location,d.website].filter(Boolean).map(esc).join('<span style="color:#D0D0D0;margin:0 8px;">|</span>')}</div>
+  <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.88rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderGilded(d) { return `
+  <h1 class="r-name">${esc(d.fullName)}</h1>
+  <p class="r-title">${esc(d.jobTitle)}</p>
+  <p class="r-contact">${renderContact(d)}</p>
+  <hr class="r-rule">
+  <p class="r-summary">${esc(d.summary)}</p>
+  <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+  <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>`; }
+
+function renderGridMod(d) { return `
+  <div class="r-header">
+    <div class="r-name-box">
+      <h1 class="r-name">${esc(d.fullName)}</h1>
+      <p class="r-title">${esc(d.jobTitle)}</p>
+    </div>
+    <div class="r-contact-box">
+      ${[d.email,d.phone,d.location,d.website].filter(Boolean).map(x=>`<span class="r-contact-item">${esc(x)}</span>`).join('')}
+    </div>
+  </div>
+  <div class="r-body">
+    <div class="r-col">
+      <section class="r-section"><h2 class="r-section-title">Summary</h2><p style="font-size:.88rem;line-height:1.65;margin:0;">${esc(d.summary)}</p></section>
+      <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    </div>
+    <div class="r-col">
+      <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+      <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+    </div>
+  </div>`; }
+
+function renderTerra(d) { return `
+  <div class="r-top">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+  </div>
+  <div class="r-stripe"></div>
+  <div class="r-body">
+    <p class="r-summary">${esc(d.summary)}</p>
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+  </div>`; }
+
+function renderWave(d) { return `
+  <div class="r-top">
+    <h1 class="r-name">${esc(d.fullName)}</h1>
+    <p class="r-title">${esc(d.jobTitle)}</p>
+    <p class="r-contact">${renderContact(d)}</p>
+  </div>
+  <div class="r-body">
+    <p class="r-summary">${esc(d.summary)}</p>
+    <section class="r-section"><h2 class="r-section-title">Experience</h2>${renderExperience(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Education</h2>${renderEducation(d)}</section>
+    <section class="r-section"><h2 class="r-section-title">Skills</h2><div class="r-skills">${renderSkillTags(d)}</div></section>
+  </div>`; }
+
+const TEMPLATES = {
+  ledger:     { render: renderLedger },
+  studio:     { render: renderStudio },
+  fieldnotes: { render: renderFieldNotes },
+  eclipse:    { render: renderEclipse },
+  cardinal:   { render: renderCardinal },
+  typewriter: { render: renderTypewriter },
+  atlas:      { render: renderAtlas },
+  memo:       { render: renderMemo },
+  prism:      { render: renderPrism },
+  blueprint:  { render: renderBlueprint },
+  linen:      { render: renderLinen },
+  neon:       { render: renderNeon },
+  herald:     { render: renderHerald },
+  copper:     { render: renderCopper },
+  ivory:      { render: renderIvory },
+  slate:      { render: renderSlate },
+  gilded:     { render: renderGilded },
+  'grid-mod': { render: renderGridMod },
+  terra:      { render: renderTerra },
+  wave:       { render: renderWave }
+};
+
+/* =====================
+   SAMPLE DATA
+===================== */
+const BASE = {
+  fullName: 'Maya Lindqvist', jobTitle: 'Operations Manager',
+  email: 'maya@email.com', phone: '(555) 209-4471', location: 'Chicago, IL', website: 'linkedin.com/in/mlindqvist',
+  summary: 'Operations leader with 8 years streamlining logistics and vendor management for mid-size manufacturing teams. Known for building systems that hold up under pressure and teams that run without hand-holding.',
+  skills: ['Process Design', 'Vendor Negotiation', 'Forecasting', 'SAP', 'Team Leadership', 'Budget Planning', 'Six Sigma'],
+  experience: [
+    { role: 'Operations Manager', company: 'Halden Goods Co.', dates: '2021–Present', bullets: ['Cut fulfillment time by 28% by redesigning warehouse routing', 'Manage a team of 14 across two shifts', 'Negotiated supplier contracts saving $180K annually'] },
+    { role: 'Logistics Lead', company: 'Brookfield Supply', dates: '2018–2021', bullets: ['Built the first KPI dashboard for daily shipment tracking', 'Reduced late deliveries from 12% to 3%'] },
+    { role: 'Warehouse Coordinator', company: 'Northbridge Co.', dates: '2015–2018', bullets: ['Oversaw inventory audits across 3 facilities'] }
+  ],
+  education: [{ degree: 'B.S. Supply Chain Management', school: 'University of Illinois', dates: '2011–2015' }]
+};
+const CREATIVE = {
+  fullName: 'Theo Bramwell', jobTitle: 'Brand Designer',
+  email: 'hello@theobramwell.com', phone: '(555) 318-2290', location: 'Portland, OR', website: 'theobramwell.com',
+  summary: 'Brand designer building identity systems for food, music, and lifestyle brands — from sketchbook to shelf. Every mark has a reason.',
+  skills: ['Identity Design', 'Typography', 'Art Direction', 'Figma', 'Print Production', 'Illustration', 'Motion'],
+  experience: [
+    { role: 'Senior Brand Designer', company: 'Studio Marrow', dates: '2022–Present', bullets: ['Led a rebrand for a regional coffee chain across 40 locations', 'Designed packaging system shortlisted for a design award'] },
+    { role: 'Designer', company: 'Felt & Co.', dates: '2019–2022', bullets: ['Created identity systems for 12+ independent clients', 'Art directed photography for seasonal campaigns'] },
+    { role: 'Junior Designer', company: 'Paper Plane Studio', dates: '2017–2019', bullets: ['Supported lookbook design for two apparel launches'] }
+  ],
+  education: [{ degree: 'B.F.A. Graphic Design', school: 'Rhode Island School of Design', dates: '2013–2017' }]
+};
+const TECH = {
+  fullName: 'Priya Anand', jobTitle: 'Backend Engineer',
+  email: 'priya@dev.io', phone: '(555) 447-9981', location: 'Austin, TX', website: 'github.com/panand',
+  summary: 'Backend engineer focused on distributed systems and developer tooling. Has a habit of writing things down so the next person does not have to ask.',
+  skills: ['Go', 'Python', 'PostgreSQL', 'Kafka', 'Docker', 'Kubernetes', 'Terraform', 'gRPC', 'AWS', 'Redis'],
+  experience: [
+    { role: 'Backend Engineer', company: 'Pace Robotics', dates: '2022–Present', bullets: ['Rebuilt the event pipeline to handle 4x traffic at the same cost', 'Wrote the on-call runbook now used by 3 teams'] },
+    { role: 'Software Engineer', company: 'Lumen Health', dates: '2020–2022', bullets: ['Migrated billing service from monolith into 6 services', 'Cut API latency p95 from 800ms to 210ms'] },
+    { role: 'Software Engineer Intern', company: 'Lumen Health', dates: '2019–2020', bullets: ['Built an internal CLI used by the data team'] }
+  ],
+  education: [{ degree: 'B.S. Computer Science', school: 'University of Texas at Austin', dates: '2016–2020' }]
+};
+const ACADEMIC = {
+  fullName: 'Dr. James Okafor', jobTitle: 'Assistant Professor of Economics',
+  email: 'j.okafor@univ.edu', phone: '(617) 540-2280', location: 'Cambridge, MA', website: 'jamesokafor.net',
+  summary: 'Economist studying labor markets and wage inequality, with a focus on policy interventions in low-income urban settings. Published in AER and NBER Working Papers.',
+  skills: ['Econometrics', 'R', 'Stata', 'Python', 'Causal Inference', 'Survey Design', 'LaTeX', 'Teaching'],
+  experience: [
+    { role: 'Assistant Professor', company: 'Harvard Economics Dept.', dates: '2022–Present', bullets: ['Teaching graduate Econometrics (30 students)', 'Supervising 4 PhD students', 'Received departmental teaching award 2023'] },
+    { role: 'Postdoctoral Researcher', company: 'MIT Economics', dates: '2020–2022', bullets: ['Co-authored 2 working papers on minimum wage effects', 'Presented at NBER Summer Institute'] }
+  ],
+  education: [
+    { degree: 'Ph.D. Economics', school: 'Princeton University', dates: '2014–2020' },
+    { degree: 'B.A. Mathematics & Economics', school: 'Yale University', dates: '2010–2014' }
+  ]
+};
+
+const SAMPLES = {
+  ledger: BASE, studio: CREATIVE, fieldnotes: TECH,
+  eclipse: TECH, cardinal: BASE, typewriter: CREATIVE,
+  atlas: BASE, memo: BASE, prism: CREATIVE,
+  blueprint: TECH, linen: CREATIVE, neon: TECH,
+  herald: CREATIVE, copper: CREATIVE, ivory: ACADEMIC,
+  slate: ACADEMIC, gilded: BASE, 'grid-mod': TECH,
+  terra: BASE, wave: BASE
+};
+
+/* =====================
+   RENDER GALLERY PREVIEWS
+===================== */
+document.querySelectorAll('[data-preview]').forEach(el => {
+  const key = el.dataset.preview;
+  if (TEMPLATES[key]) el.innerHTML = TEMPLATES[key].render(SAMPLES[key]);
+});
+
+function fitResume(box, resume) {
+  if (!box || !resume) return;
+  const scale = box.clientWidth / 816;
+  resume.style.transform = `scale(${scale})`;
+  box.style.height = (resume.scrollHeight * scale) + 'px';
+}
+function refreshPreviews() {
+  document.querySelectorAll('.preview-window').forEach(box => {
+    fitResume(box, box.querySelector('.resume'));
+  });
+}
+window.addEventListener('resize', refreshPreviews);
+requestAnimationFrame(() => { setTimeout(refreshPreviews, 100); });
+
+/* =====================
+   FILTER
+===================== */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let shown = 0;
+    document.querySelectorAll('.folder-card').forEach(card => {
+      const cats = (card.dataset.categories || '').split(' ');
+      if (filter === 'all' || cats.includes(filter)) { card.classList.remove('hidden'); shown++; }
+      else card.classList.add('hidden');
+    });
+    document.getElementById('count-label').textContent = `Showing ${shown} of 20`;
+    requestAnimationFrame(refreshPreviews);
+  });
+});
+
+/* =====================
+   MODAL
+===================== */
+let currentTemplate = null;
+
+document.querySelectorAll('[data-use]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const template = btn.dataset.use;
+    const color = btn.dataset.color;
+    let url = `resume-builder.html?template=${encodeURIComponent(template)}`;
+    if (color) url += `&color=${encodeURIComponent(color)}`;
+    window.location.href = url;
+  });
+});
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* =====================
+   PREVIEW & PRINT
+===================== */
+document.getElementById('modal-preview-btn').addEventListener('click', () => {
+  const d = {
+    fullName:  document.getElementById('f-name').value.trim()     || 'Your Name',
+    jobTitle:  document.getElementById('f-title').value.trim()    || 'Job Title',
+    email:     document.getElementById('f-email').value.trim(),
+    phone:     document.getElementById('f-phone').value.trim(),
+    location:  document.getElementById('f-location').value.trim(),
+    website:   document.getElementById('f-website').value.trim(),
+    summary:   document.getElementById('f-summary').value.trim()  || '',
+    skills:    (document.getElementById('f-skills').value || '').split(',').map(s => s.trim()).filter(Boolean),
+    experience: [],
+    education:  []
+  };
+
+  // Parse experience lines
+  (document.getElementById('f-experience').value || '').split('\n').filter(l => l.trim()).forEach(line => {
+    const parts = line.split('|');
+    if (parts.length >= 3) {
+      d.experience.push({
+        role:    (parts[0] || '').trim(),
+        company: (parts[1] || '').trim(),
+        dates:   (parts[2] || '').trim(),
+        bullets: (parts[3] || '').split(';').map(b => b.trim()).filter(Boolean)
+      });
+    }
+  });
+
+  // Parse education lines
+  (document.getElementById('f-education').value || '').split('\n').filter(l => l.trim()).forEach(line => {
+    const parts = line.split('|');
+    if (parts.length >= 2) {
+      d.education.push({
+        degree: (parts[0] || '').trim(),
+        school: (parts[1] || '').trim(),
+        dates:  (parts[2] || '').trim()
+      });
+    }
+  });
+
+  // Fallback to sample data if nothing entered
+  if (d.experience.length === 0) d.experience = BASE.experience;
+  if (d.education.length === 0)  d.education  = BASE.education;
+
+  const tpl = TEMPLATES[currentTemplate];
+  if (!tpl) return;
+
+  // Collect all CSS from the page
+  const allStyles = Array.from(document.styleSheets).map(sheet => {
+    try {
+      return Array.from(sheet.cssRules).map(r => r.cssText).join('\n');
+    } catch(e) { return ''; }
+  }).join('\n');
+
+  const win = window.open('', '_blank');
+  if (!win) { alert('Please allow pop-ups to preview your resume.'); return; }
+
+  win.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${esc(d.fullName)} — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Inconsolata:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:#fff;}
+@media print{
+  body{margin:0;}
+  .no-print{display:none!important;}
+  @page{margin:0.5in;}
+}
+${allStyles}
+</style>
+</head>
+<body>
+<div class="no-print" style="position:fixed;top:0;left:0;right:0;background:#1A1D21;color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;z-index:999;font-family:'IBM Plex Mono',monospace;font-size:.78rem;">
+  <span>Drafted — ${esc(d.fullName)}</span>
+  <button onclick="window.print()" style="background:#fff;color:#1A1D21;border:none;padding:8px 20px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:600;cursor:pointer;letter-spacing:.06em;">Print / Save PDF ↓</button>
+</div>
+<div style="padding:60px 24px 40px;max-width:900px;margin:0 auto;">
+  <div class="resume resume--${currentTemplate}" style="width:816px;margin:0 auto;box-shadow:0 8px 40px rgba(0,0,0,0.15);">
+    ${tpl.render(d)}
+  </div>
+</div>
+</body>
+</html>`);
+  win.document.close();
+});
+</script>
+</body>
+</html>

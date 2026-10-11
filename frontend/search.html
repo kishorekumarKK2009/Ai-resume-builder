@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Resumes — Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f4ed;
+    --paper-deep:#efeada;
+    --ink:#16191c;
+    --ink-soft:#3a3d3f;
+    --accent:#c2461b;
+    --accent-deep:#9c3814;
+    --line:#e3ddd0;
+    --line-strong:#d2cabb;
+    --muted:#8b8478;
+    --card:#fffefb;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',Arial,sans-serif;
+    background:
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(194,70,27,0.05), transparent),
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(140,130,110,0.035) 28px),
+      var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+    padding:48px 20px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .app{
+    width:100%;
+    max-width:880px;
+    margin:0 auto;
+    animation:appIn .6s var(--ease) both;
+  }
+  @keyframes appIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ── Masthead ── */
+  .masthead{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px;height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(32px,5vw,44px);
+    letter-spacing:-0.01em;
+    line-height:1.02;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:8px;
+    max-width:48ch;
+    line-height:1.5;
+  }
+  .top-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:11px 18px;
+    border-radius:2px;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+    background:transparent;
+    text-decoration:none;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    transition:background .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);
+    white-space:nowrap;
+  }
+  .top-btn:hover{ background:var(--ink); color:var(--paper); transform:translateY(-1px); }
+  .top-btn:active{ transform:translateY(0) scale(.97); }
+  .top-btn svg{ transition:transform .25s var(--ease); }
+  .top-btn:hover svg{ transform:translateX(-3px); }
+
+  /* ── Toolbar ── */
+  .toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search-wrap{
+    flex:1;
+    min-width:240px;
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .search-wrap svg{
+    position:absolute;
+    left:13px;
+    color:var(--muted);
+    pointer-events:none;
+    transition:color .2s var(--ease);
+  }
+  .search-wrap:focus-within svg{ color:var(--accent); }
+  .toolbar input{
+    width:100%;
+    padding:12px 14px 12px 38px;
+    border:1.5px solid var(--line-strong);
+    border-radius:3px;
+    background:var(--card);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .toolbar input::placeholder{ color:#a89f90; }
+  .toolbar input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(194,70,27,0.1);
+  }
+
+  .status{
+    font-family:'JetBrains Mono',monospace;
+    min-height:18px;
+    color:var(--muted);
+    font-size:12px;
+    margin:14px 2px 18px;
+    letter-spacing:.02em;
+  }
+
+  /* ── Archive list ── */
+  .history-list{ display:flex; flex-direction:column; }
+
+  .history-card{
+    --i:0;
+    position:relative;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-left:none;
+    border-radius:0 4px 4px 0;
+    padding:20px 22px 20px 26px;
+    margin-left:52px;
+    margin-bottom:14px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:18px;
+    align-items:start;
+    opacity:0;
+    transform:translateX(-6px);
+    animation:cardIn .5s var(--ease) forwards;
+    animation-delay:calc(var(--i) * 65ms);
+    transition:box-shadow .35s var(--ease), border-color .3s var(--ease), transform .35s var(--ease-spring);
+  }
+  @keyframes cardIn{ to{ opacity:1; transform:translateX(0); } }
+
+  .history-card::before{
+    content: attr(data-index);
+    position:absolute;
+    left:-52px;
+    top:0;
+    width:40px;
+    height:100%;
+    min-height:64px;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:14px;
+    border-radius:4px 0 0 4px;
+    letter-spacing:.03em;
+    transition:background .3s var(--ease);
+  }
+
+  .history-card:hover{
+    box-shadow:0 14px 32px -18px rgba(22,25,28,0.28), 6px 0 0 -4px var(--accent);
+    border-color:var(--line-strong);
+    transform:translateX(2px);
+  }
+  .history-card:hover::before{ background:var(--accent-deep); }
+
+  .history-card.removing{
+    animation:cardOut .35s var(--ease) forwards;
+    pointer-events:none;
+  }
+  @keyframes cardOut{
+    to{ opacity:0; transform:translateX(18px) scale(.97); margin-bottom:0; max-height:0; padding-top:0; padding-bottom:0; }
+  }
+
+  @media (max-width:640px){
+    .history-card{ grid-template-columns:1fr; margin-left:40px; padding:18px; }
+    .history-card::before{ left:-40px; width:30px; font-size:9px; padding-top:12px; }
+    .actions{ justify-content:flex-start; }
+  }
+
+  .card-head{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+  .card-title{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-size:21px;
+    letter-spacing:-0.005em;
+  }
+  .meta{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .meta .dot{ opacity:.5; }
+  .summary{
+    color:var(--ink-soft);
+    line-height:1.55;
+    max-width:64ch;
+    white-space:pre-wrap;
+    font-size:14.5px;
+  }
+  .pill-row{ display:flex; gap:7px; flex-wrap:wrap; margin-top:14px; }
+  .pill{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    padding:3px 9px;
+    font-size:11.5px;
+    font-family:'JetBrains Mono',monospace;
+    transition:border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+  }
+  .history-card:hover .pill{
+    border-color:var(--accent);
+    color:var(--accent-deep);
+    background:rgba(194,70,27,0.05);
+  }
+
+  .actions{ display:flex; gap:8px; align-items:flex-start; flex-wrap:wrap; justify-content:flex-end; }
+  .small-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1.5px solid var(--line-strong);
+    border-radius:3px;
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    padding:8px 13px;
+    font-weight:600;
+    font-size:12.5px;
+    font-family:'Inter',sans-serif;
+    transition:border-color .22s var(--ease), color .22s var(--ease), background .22s var(--ease), transform .15s var(--ease);
+    white-space:nowrap;
+  }
+  .small-btn svg{ flex-shrink:0; }
+  .small-btn:hover{ border-color:var(--ink); color:var(--ink); background:var(--paper-deep); transform:translateY(-1px); }
+  .small-btn:active{ transform:translateY(0) scale(.95); }
+  .small-btn.danger:hover{ border-color:#a33; color:#a33; background:#fdf3f1; }
+
+  .empty{
+    background:var(--card);
+    border:1.5px dashed var(--line-strong);
+    border-radius:4px;
+    padding:48px 32px;
+    color:var(--muted);
+    text-align:center;
+    font-size:14px;
+    opacity:0;
+    animation:cardIn .45s var(--ease) forwards;
+    margin-left:0;
+  }
+  .empty .empty-glyph{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:32px;
+    color:var(--line-strong);
+    margin-bottom:10px;
+    display:block;
+  }
+
+  /* ── Toast ── */
+  .toast{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:13px 20px;
+    border-radius:3px;
+    font-size:13.5px;
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:.01em;
+    opacity:0;
+    transform:translateY(16px) scale(.96);
+    transition:opacity .3s var(--ease),transform .3s var(--ease);
+    pointer-events:none;
+    z-index:999;
+    box-shadow:0 16px 32px -12px rgba(0,0,0,0.4);
+    border-left:3px solid var(--accent);
+  }
+  .toast.show{ opacity:1; transform:translateY(0) scale(1); }
+
+  /* ── Detail panel (slide-in dossier) ── */
+  .scrim{
+    position:fixed; inset:0;
+    background:rgba(22,25,28,0.38);
+    backdrop-filter:blur(2px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .32s var(--ease);
+    z-index:998;
+  }
+  .scrim.show{ opacity:1; pointer-events:auto; }
+
+  .detail-panel{
+    position:fixed;
+    top:0; right:0;
+    height:100%;
+    width:min(480px, 100%);
+    background:var(--paper);
+    border-left:2px solid var(--ink);
+    box-shadow:-24px 0 48px -24px rgba(22,25,28,0.35);
+    transform:translateX(100%);
+    transition:transform .42s var(--ease);
+    z-index:999;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .detail-panel.show{ transform:translateX(0); }
+
+  .detail-head{
+    padding:24px 26px 18px;
+    border-bottom:1.5px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    flex-shrink:0;
+  }
+  .detail-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .detail-title{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-size:25px;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+  .detail-role{
+    color:var(--muted);
+    font-size:13.5px;
+    margin-top:6px;
+  }
+  .close-btn{
+    border:1.5px solid var(--line-strong);
+    background:var(--card);
+    border-radius:3px;
+    width:34px; height:34px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    color:var(--ink-soft);
+    flex-shrink:0;
+    transition:border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+  }
+  .close-btn:hover{ border-color:var(--accent); color:var(--accent-deep); transform:rotate(90deg); }
+
+  .detail-body{
+    padding:22px 26px 26px;
+    overflow-y:auto;
+    flex:1;
+  }
+  .detail-section{ margin-bottom:24px; }
+  .detail-section:last-child{ margin-bottom:0; }
+  .detail-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .detail-label::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .detail-text{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .detail-pills{ display:flex; gap:7px; flex-wrap:wrap; }
+  .detail-pill{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    padding:4px 10px;
+    font-size:12px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .exp-item{
+    border-left:2px solid var(--line-strong);
+    padding-left:14px;
+    margin-bottom:16px;
+  }
+  .exp-item:last-child{ margin-bottom:0; }
+  .exp-role{ font-weight:600; font-size:14.5px; color:var(--ink); }
+  .exp-company{ font-size:13px; color:var(--accent-deep); font-family:'JetBrains Mono',monospace; margin-top:2px; }
+  .exp-desc{ font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin-top:6px; }
+  .detail-meta-row{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:14px;
+  }
+  .detail-footer{
+    padding:18px 26px;
+    border-top:1.5px solid var(--line);
+    display:flex;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .detail-footer .small-btn{ flex:1; justify-content:center; padding:11px; }
+
+  ::selection{ background:rgba(194,70,27,0.22); }
+  *:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="masthead">
+    <div>
+      <div class="eyebrow">Search the Archive</div>
+      <h1>Search Resumes</h1>
+      <div class="subtitle">Find any filed résumé and open its full details, or remove it for good.</div>
+    </div>
+    <button class="top-btn" onclick="goToBuilder()" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to Builder
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="searchInput" type="search" placeholder="Search by name, role, skill, or company">
+    </div>
+  </div>
+
+  <div class="status" id="statusMsg"></div>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<!-- Detail panel -->
+<div class="scrim" id="scrim"></div>
+<aside class="detail-panel" id="detailPanel">
+  <div class="detail-head">
+    <div>
+      <div class="detail-eyebrow">Résumé Detail</div>
+      <div class="detail-title" id="detailTitle">—</div>
+      <div class="detail-role" id="detailRole">—</div>
+    </div>
+    <button class="close-btn" id="closeDetail" type="button" aria-label="Close">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="detail-body" id="detailBody"></div>
+  <div class="detail-footer">
+    <button class="small-btn danger" id="detailDelete" type="button">Delete</button>
+  </div>
+</aside>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── Keys ── */
+  const HISTORY_KEY = 'resume_builder_history';
+
+  /* ── DOM refs ── */
+  const historyList  = document.getElementById('historyList');
+  const searchInput  = document.getElementById('searchInput');
+  const statusMsg    = document.getElementById('statusMsg');
+  const toastEl       = document.getElementById('toast');
+  const scrim         = document.getElementById('scrim');
+  const detailPanel   = document.getElementById('detailPanel');
+  const detailTitle   = document.getElementById('detailTitle');
+  const detailRole    = document.getElementById('detailRole');
+  const detailBody    = document.getElementById('detailBody');
+  const closeDetail   = document.getElementById('closeDetail');
+  const detailDelete  = document.getElementById('detailDelete');
+
+  let activeDetailId = null;
+
+  /* ── Toast helper ── */
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toastEl.classList.remove('show'), 2500);
+  }
+
+  /* ── Navigation helper ── */
+  function goToBuilder(){
+    window.history.back();
+  }
+
+  /* ── XSS escape ── */
+  function escapeHtml(value){
+    return String(value || '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  /* ── Storage helpers ── */
+  function loadHistory(){
+    try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function saveHistory(history){
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  }
+
+  /* ── Helpers ── */
+  function formatDate(value){
+    if(!value) return 'date unavailable';
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? 'date unavailable' : d.toLocaleString();
+  }
+
+  function searchableText(item){
+    const personal = item.data?.personal || {};
+    const skills = getSkills(item).join(' ');
+    const experience = (item.data?.experience || [])
+      .map(e => [e.company, e.role, e.desc].filter(Boolean).join(' ')).join(' ');
+    return [
+      item.title, item.role,
+      personal.name, personal.title, personal.summary,
+      skills, experience
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function getSkills(item){
+    return (item.data?.skills || []).map(s => s.name || s).filter(Boolean);
+  }
+
+  function getSummary(item){
+    const ps = item.data?.personal?.summary;
+    if(ps) return ps;
+    const exp = (item.data?.experience || []).find(e => e.desc);
+    return exp?.desc || 'No summary added yet.';
+  }
+
+  function indexTag(i){ return String(i + 1).padStart(2, '0'); }
+
+  /* ── Render list ── */
+  function renderHistory(){
+    const query   = searchInput.value.trim().toLowerCase();
+    const history = loadHistory();
+    const filtered = query ? history.filter(i => searchableText(i).includes(query)) : history;
+
+    if(!history.length){
+      statusMsg.textContent = '';
+    } else if(!filtered.length){
+      statusMsg.textContent = '// no results match your search';
+    } else if(query){
+      statusMsg.textContent = `// ${filtered.length} of ${history.length} entries shown`;
+    } else {
+      statusMsg.textContent = `// ${history.length} ${history.length !== 1 ? 'entries' : 'entry'} filed`;
+    }
+
+    if(!filtered.length){
+      historyList.innerHTML = `<div class="empty">
+        <span class="empty-glyph">${history.length ? '∅' : '—'}</span>
+        ${history.length
+          ? 'No filed résumés match your search.'
+          : 'The archive is empty. Save a résumé from the builder to file your first version here.'}
+      </div>`;
+      return;
+    }
+
+    historyList.innerHTML = filtered.map((item, i) => {
+      const personal = item.data?.personal || {};
+      const skills   = getSkills(item).slice(0, 6);
+      const summary  = getSummary(item);
+      const truncated = summary.length > 260 ? summary.slice(0, 260) + '…' : summary;
+      return `
+        <article class="history-card" style="--i:${i}" data-index="${indexTag(i)}">
+          <div>
+            <div class="card-head">
+              <div class="card-title">${escapeHtml(item.title || personal.name || 'Untitled Resume')}</div>
+            </div>
+            <div class="meta">${escapeHtml(item.role || personal.title || 'No role added')}<span class="dot">·</span>${escapeHtml(formatDate(item.savedAt))}</div>
+            <div class="summary">${escapeHtml(truncated)}</div>
+            ${skills.length ? `<div class="pill-row">${skills.map(s=>`<span class="pill">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+          </div>
+          <div class="actions">
+            <button class="small-btn" data-action="view" data-id="${escapeHtml(item.id)}" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              View Details
+            </button>
+            <button class="small-btn danger" data-action="delete" data-id="${escapeHtml(item.id)}" type="button">Delete</button>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  /* ── Detail panel rendering ── */
+  function openDetail(item){
+    activeDetailId = item.id;
+    const personal = item.data?.personal || {};
+    const skills   = getSkills(item);
+    const experience = item.data?.experience || [];
+
+    detailTitle.textContent = item.title || personal.name || 'Untitled Resume';
+    detailRole.textContent  = item.role || personal.title || 'No role added';
+
+    const sections = [];
+
+    sections.push(`
+      <div class="detail-section">
+        <div class="detail-label">Summary</div>
+        <div class="detail-text">${escapeHtml(personal.summary || getSummary(item))}</div>
+      </div>`);
+
+    if(skills.length){
+      sections.push(`
+        <div class="detail-section">
+          <div class="detail-label">Skills</div>
+          <div class="detail-pills">${skills.map(s => `<span class="detail-pill">${escapeHtml(s)}</span>`).join('')}</div>
+        </div>`);
+    }
+
+    if(experience.length){
+      sections.push(`
+        <div class="detail-section">
+          <div class="detail-label">Experience</div>
+          ${experience.map(e => `
+            <div class="exp-item">
+              <div class="exp-role">${escapeHtml(e.role || 'Role unspecified')}</div>
+              <div class="exp-company">${escapeHtml(e.company || 'Company unspecified')}</div>
+              ${e.desc ? `<div class="exp-desc">${escapeHtml(e.desc)}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>`);
+    }
+
+    sections.push(`
+      <div class="detail-section">
+        <div class="detail-label">Filed</div>
+        <div class="detail-meta-row">${escapeHtml(formatDate(item.savedAt))} &nbsp;·&nbsp; ID ${escapeHtml(item.id)}</div>
+      </div>`);
+
+    detailBody.innerHTML = sections.join('');
+    detailDelete.dataset.id = item.id;
+
+    scrim.classList.add('show');
+    detailPanel.classList.add('show');
+  }
+
+  function closeDetailPanel(){
+    scrim.classList.remove('show');
+    detailPanel.classList.remove('show');
+    activeDetailId = null;
+  }
+
+  closeDetail.addEventListener('click', closeDetailPanel);
+  scrim.addEventListener('click', closeDetailPanel);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && detailPanel.classList.contains('show')) closeDetailPanel();
+  });
+
+  /* ── Delete logic (shared by card button and detail-panel button) ── */
+  function deleteEntry(id, cardEl){
+    if(!confirm('Delete this saved resume?')) return;
+    const history = loadHistory();
+
+    if(activeDetailId === id) closeDetailPanel();
+
+    if(cardEl){
+      cardEl.classList.add('removing');
+      cardEl.addEventListener('animationend', () => {
+        saveHistory(history.filter(i => i.id !== id));
+        renderHistory();
+        showToast('Resume deleted.');
+      }, { once:true });
+    } else {
+      saveHistory(history.filter(i => i.id !== id));
+      renderHistory();
+      showToast('Resume deleted.');
+    }
+  }
+
+  /* ── Click handler (event delegation) ── */
+  historyList.addEventListener('click', event => {
+    const btn = event.target.closest('[data-action]');
+    if(!btn) return;
+
+    const id     = btn.dataset.id;
+    const action = btn.dataset.action;
+    const history = loadHistory();
+    const item   = history.find(i => i.id === id);
+    if(!item) return;
+
+    if(action === 'view'){
+      openDetail(item);
+      return;
+    }
+
+    if(action === 'delete'){
+      deleteEntry(id, btn.closest('.history-card'));
+    }
+  });
+
+  detailDelete.addEventListener('click', () => {
+    deleteEntry(detailDelete.dataset.id, null);
+  });
+
+  /* ── Search (debounced) ── */
+  let searchDebounce;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(renderHistory, 120);
+  });
+
+  /* ── Init ── */
+  renderHistory();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #eef2ff; }
+.page-shell { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+#resumeForm { display: grid; gap: 1rem; background: white; padding: 1.8rem; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+#resumeForm label { display: block; font-weight: 600; margin-bottom: 0.4rem; }
+#resumeForm input, #resumeForm textarea { width: 100%; padding: 0.95rem; border-radius: 12px; border: 1px solid #d8dce8; }
+#resumeForm button { width: 160px; padding: 0.95rem; border: none; background: #3b5bdb; color: white; border-radius: 12px; cursor: pointer; }

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Editor</title>
+<link rel="stylesheet" href="css/page-loader.css">
+
+<style>
+:root{
+    --paper:#f3efe7;
+    --card:#ffffff;
+    --ink:#23211d;
+    --muted:#8a8377;
+    --accent:#c1542d;
+    --line:#e6e0d4;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Georgia','Times New Roman',serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:var(--paper);
+    color:var(--ink);
+    padding:40px 16px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    position:absolute;
+    top:24px;
+    left:24px;
+    padding:10px 18px;
+    border:1px solid var(--ink);
+    border-radius:999px;
+    background:transparent;
+    color:var(--ink);
+    font-family:Arial, sans-serif;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.back-btn:hover{
+    background:var(--ink);
+    color:var(--paper);
+}
+
+/* CARD */
+.card{
+    width:400px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:40px 32px;
+    box-shadow:0 1px 0 var(--line);
+
+    opacity:0;
+    transform:translateY(16px);
+    animation:fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TITLE */
+h2{
+    font-size:24px;
+    letter-spacing:0.5px;
+    margin-bottom:6px;
+}
+
+.subtitle{
+    font-family:Arial, sans-serif;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--muted);
+    margin-bottom:24px;
+    padding-bottom:24px;
+    border-bottom:2px solid var(--ink);
+}
+
+/* FIELD */
+.field{
+    margin-bottom:16px;
+}
+
+.field label{
+    display:block;
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--muted);
+    margin-bottom:6px;
+}
+
+/* INPUT */
+input{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fffefb;
+    color:var(--ink);
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    outline:none;
+    transition:0.2s;
+}
+
+input:focus{
+    border-color:var(--accent);
+    outline:2px solid var(--accent);
+    outline-offset:1px;
+}
+
+input::placeholder{
+    color:var(--muted);
+}
+
+/* BUTTONS */
+.btns{
+    display:flex;
+    gap:10px;
+    margin-top:24px;
+}
+
+button{
+    flex:1;
+    padding:13px;
+    border:1px solid var(--ink);
+    border-radius:4px;
+    font-family:Arial, sans-serif;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:0.2s;
+    background:transparent;
+    color:var(--ink);
+}
+
+.save{
+    background:var(--ink);
+    color:var(--paper);
+}
+
+.save:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+}
+
+.reset:hover{
+    background:var(--ink);
+    color:var(--paper);
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+<button class="back-btn" onclick="window.location.href='profile.html'">
+  ← Back
+</button>
+
+<div class="card">
+
+    <h2>Profile Editor</h2>
+    <div class="subtitle">Update your details</div>
+
+    <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Kishore Kumar">
+    </div>
+
+    <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="kishore123">
+    </div>
+
+    <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••">
+    </div>
+
+    <div class="field">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="21">
+    </div>
+
+    <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="kishore@gmail.com">
+    </div>
+
+    <div class="field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="+91 9876543210">
+    </div>
+
+    <div class="btns">
+        <button class="save" onclick="saveProfile()">Save</button>
+        <button class="reset" onclick="resetForm()">Reset</button>
+    </div>
+
+</div>
+
+<script>
+
+function goBack(){
+    window.history.back();
+}
+
+function saveProfile(){
+    alert("Profile saved successfully!");
+}
+
+function resetForm(){
+    document.getElementById("name").value="";
+    document.getElementById("username").value="";
+    document.getElementById("password").value="";
+    document.getElementById("age").value="";
+    document.getElementById("email").value="";
+    document.getElementById("phone").value="";
+}
+
+</script>
+<script src="js/page-loader.js"></script>
+<script>pageLoader.ready();</script>
+
+</body>
+</html>

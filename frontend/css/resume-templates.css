@@ -1,0 +1,308 @@
+﻿/* ========== RESUME BASE ========== */
+.resume { background: #fff; color: #1A1D21; font-family: 'Inter', sans-serif; width: 816px; min-height: 1056px; }
+.r-section { margin-bottom: 20px; }
+.r-bullets { margin: 5px 0 0; padding-left: 16px; }
+.r-bullets li { margin-bottom: 3px; font-size: 0.88rem; line-height: 1.5; }
+.r-exp { margin-bottom: 14px; }
+.r-exp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.r-exp-role { font-weight: 600; font-size: 0.92rem; }
+.r-exp-sub { color: #6B7178; font-size: 0.82rem; margin: 2px 0 0; }
+.r-exp-dates { font-size: 0.75rem; color: #6B7178; white-space: nowrap; }
+.r-edu-item { margin-bottom: 10px; }
+.r-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.r-skill { font-size: 0.7rem; padding: 4px 10px; border-radius: 3px; }
+
+/* ========================
+   TEMPLATE 1: LEDGER
+======================== */
+.resume--ledger { padding: 52px 56px; }
+.resume--ledger .r-name { font-family: 'Fraunces', serif; font-size: 2.3rem; margin: 0; line-height: 1.1; color: #23272B; }
+.resume--ledger .r-title { font-family: 'IBM Plex Mono', monospace; color: #3E5C76; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 8px 0 10px; }
+.resume--ledger .r-contact { font-size: 0.78rem; color: #6B7178; margin: 0 0 20px; }
+.resume--ledger .r-rule { border: none; border-top: 2px solid #3E5C76; margin: 0 0 24px; }
+.resume--ledger .r-columns { display: grid; grid-template-columns: 1fr 210px; gap: 36px; }
+.resume--ledger .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #D7CFC2; color: #3E5C76; }
+.resume--ledger .r-skill { background: #DCE4EC; color: #3E5C76; font-family: 'IBM Plex Mono', monospace; }
+.resume--ledger .r-side p { font-size: 0.84rem; color: #6B7178; margin: 0; line-height: 1.6; }
+
+/* ========================
+   TEMPLATE 2: STUDIO
+======================== */
+.resume--studio { padding: 0; }
+.resume--studio .r-band { background: #A8691A; color: #fff; padding: 44px 52px; }
+.resume--studio .r-name { font-family: 'Fraunces', serif; font-size: 2.5rem; margin: 0; color: #fff; }
+.resume--studio .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 7px 0 14px; font-weight: 600; }
+.resume--studio .r-band .r-contact { font-size: 0.78rem; margin: 0; }
+.resume--studio .r-body { padding: 36px 52px; }
+.resume--studio .r-summary { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 500; color: #1A1D21; margin: 0 0 28px; max-width: 90%; }
+.resume--studio .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #F3E3CC; color: #A8691A; }
+.resume--studio .r-exp { position: relative; padding-left: 20px; border-left: 2px solid #F3E3CC; margin-bottom: 14px; }
+.resume--studio .r-exp::before { content: ''; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: #A8691A; }
+.resume--studio .r-skill { background: #F3E3CC; color: #A8691A; border-radius: 14px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ========================
+   TEMPLATE 3: FIELDNOTES
+======================== */
+.resume--fieldnotes { padding: 44px 52px; }
+.resume--fieldnotes .r-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #547259; padding-bottom: 14px; margin-bottom: 22px; gap: 24px; }
+.resume--fieldnotes .r-name { font-family: 'Fraunces', serif; font-size: 2.1rem; margin: 0; }
+.resume--fieldnotes .r-title { color: #547259; font-weight: 600; margin: 4px 0 0; font-size: 0.9rem; }
+.resume--fieldnotes .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-align: right; color: #6B7178; line-height: 1.7; white-space: nowrap; }
+.resume--fieldnotes .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #E1EAE3; color: #547259; }
+.resume--fieldnotes .r-skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px 16px; margin-bottom: 20px; }
+.resume--fieldnotes .r-skill-list { font-size: 0.84rem; line-height: 1.75; color: #1A1D21; }
+
+/* ========================
+   TEMPLATE 4: ECLIPSE (dark)
+======================== */
+.resume--eclipse { padding: 52px 56px; background: #0F1117; color: #E8E6E1; }
+.resume--eclipse .r-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+.resume--eclipse .r-name { font-family: 'Fraunces', serif; font-size: 2.3rem; margin: 0; color: #E8E6E1; line-height: 1.1; }
+.resume--eclipse .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7EB8D4; margin: 8px 0 0; }
+.resume--eclipse .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A8694; text-align: right; line-height: 1.75; }
+.resume--eclipse .r-rule { border: none; border-top: 1px solid #2A3040; margin: 0 0 26px; }
+.resume--eclipse .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: #7EB8D4; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #2A3040; }
+.resume--eclipse .r-exp-role { color: #E8E6E1; }
+.resume--eclipse .r-exp-dates { color: #7A8694; }
+.resume--eclipse .r-exp-sub { color: #7A8694; }
+.resume--eclipse .r-bullets li { color: #B8B4AD; }
+.resume--eclipse .r-skill { background: #1E2533; color: #7EB8D4; border: 1px solid #2A3040; font-family: 'IBM Plex Mono', monospace; }
+.resume--eclipse .r-side p { font-size: 0.84rem; color: #9A9690; line-height: 1.65; margin: 0; }
+.resume--eclipse .r-columns { display: grid; grid-template-columns: 1fr 210px; gap: 36px; }
+
+/* ========================
+   TEMPLATE 5: CARDINAL (red accent)
+======================== */
+.resume--cardinal { padding: 0; }
+.resume--cardinal .r-stripe { width: 6px; background: #C0392B; position: absolute; top: 0; left: 0; height: 100%; }
+.resume--cardinal .r-wrap { padding: 48px 52px 48px 58px; position: relative; }
+.resume--cardinal .r-name { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin: 0 0 4px; line-height: 1.1; }
+.resume--cardinal .r-title { font-size: 0.88rem; color: #C0392B; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 8px; }
+.resume--cardinal .r-contact { font-size: 0.78rem; color: #6B7178; border-top: 1px solid #E8E0D8; border-bottom: 1px solid #E8E0D8; padding: 8px 0; margin: 0 0 24px; }
+.resume--cardinal .r-columns { display: grid; grid-template-columns: 1fr 200px; gap: 36px; }
+.resume--cardinal .r-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: #C0392B; font-family: 'IBM Plex Mono', monospace; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 2px solid #C0392B; }
+.resume--cardinal .r-skill { background: #FDECEA; color: #C0392B; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; }
+.resume--cardinal .r-side p { font-size: 0.84rem; color: #6B7178; margin: 0; line-height: 1.6; }
+
+/* ========================
+   TEMPLATE 6: TYPEWRITER (mono)
+======================== */
+.resume--typewriter { padding: 52px 60px; font-family: 'Inconsolata', monospace; background: #FAFAF8; }
+.resume--typewriter .r-name { font-family: 'Inconsolata', monospace; font-size: 2rem; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.02em; }
+.resume--typewriter .r-title { font-size: 0.85rem; font-weight: 400; color: #6B7178; margin: 0 0 10px; }
+.resume--typewriter .r-contact { font-size: 0.78rem; color: #6B7178; border-bottom: 1px dashed #C8C2B8; padding-bottom: 14px; margin: 0 0 24px; }
+.resume--typewriter .r-section-title { font-family: 'Inconsolata', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: #1A1D21; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.resume--typewriter .r-section-title::before { content: '##'; color: #C0B090; }
+.resume--typewriter .r-section-title::after { content: ''; flex: 1; border-bottom: 1px dashed #D0C8BE; }
+.resume--typewriter .r-exp-role { font-weight: 700; font-size: 0.9rem; }
+.resume--typewriter .r-exp-dates { color: #C0B090; font-size: 0.78rem; }
+.resume--typewriter .r-bullets li { font-size: 0.86rem; }
+.resume--typewriter .r-bullets li::marker { content: '> '; color: #C0B090; }
+.resume--typewriter .r-skill { background: #EEE8DC; color: #5A4F3A; font-family: 'Inconsolata', monospace; border: 1px solid #C8C2B8; border-radius: 2px; font-size: 0.72rem; }
+
+/* ========================
+   TEMPLATE 7: ATLAS (geo/split)
+======================== */
+.resume--atlas { padding: 0; display: grid; grid-template-columns: 220px 1fr; min-height: 1056px; }
+.resume--atlas .r-sidebar { background: #2C3E50; color: #ECF0F1; padding: 44px 28px; }
+.resume--atlas .r-main-col { padding: 44px 44px; }
+.resume--atlas .r-name { font-family: 'Fraunces', serif; font-size: 1.8rem; margin: 0 0 6px; color: #ECF0F1; line-height: 1.15; }
+.resume--atlas .r-title { font-size: 0.8rem; color: #85C1E9; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px; font-family: 'IBM Plex Mono', monospace; }
+.resume--atlas .r-contact-item { font-size: 0.78rem; color: #BDC3C7; line-height: 1.9; }
+.resume--atlas .r-sidebar .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: #85C1E9; margin: 22px 0 10px; padding-bottom: 5px; border-bottom: 1px solid #3D5166; }
+.resume--atlas .r-sidebar p { font-size: 0.82rem; color: #BDC3C7; line-height: 1.6; margin: 0; }
+.resume--atlas .r-skill { background: #3D5166; color: #85C1E9; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; margin-bottom: 4px; display: block; width: 100%; }
+.resume--atlas .r-main-col .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #2C3E50; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #2C3E50; }
+.resume--atlas .r-main-col .r-section { margin-bottom: 24px; }
+
+/* ========================
+   TEMPLATE 8: MEMO (corporate)
+======================== */
+.resume--memo { padding: 48px 56px; }
+.resume--memo .r-top { border: 2px solid #1A1D21; padding: 24px 28px; margin-bottom: 28px; }
+.resume--memo .r-from-line { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: #6B7178; margin: 0 0 4px; }
+.resume--memo .r-name { font-family: 'IBM Plex Mono', monospace; font-size: 1.6rem; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.02em; }
+.resume--memo .r-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid #1A1D21; margin-top: 12px; padding-top: 12px; }
+.resume--memo .r-meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
+.resume--memo .r-meta-label { color: #6B7178; display: block; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.62rem; }
+.resume--memo .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: #1A1D21; background: #F5F1EB; padding: 5px 10px; margin: 0 0 12px; border-left: 3px solid #1A1D21; }
+.resume--memo .r-skill { background: #F5F1EB; color: #1A1D21; border: 1px solid #D9D2C6; font-family: 'IBM Plex Mono', monospace; }
+
+/* ========================
+   TEMPLATE 9: PRISM (colorblock)
+======================== */
+.resume--prism { padding: 0; }
+.resume--prism .r-top { background: #6C3483; padding: 44px 52px 32px; }
+.resume--prism .r-accent-bar { height: 6px; background: linear-gradient(90deg, #E91E8C 0%, #FF6B35 50%, #F9CA24 100%); }
+.resume--prism .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; color: #fff; margin: 0 0 6px; }
+.resume--prism .r-title { font-size: 0.88rem; color: #D7BDE2; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 12px; }
+.resume--prism .r-contact { font-size: 0.78rem; color: #D7BDE2; }
+.resume--prism .r-body { padding: 36px 52px; }
+.resume--prism .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #6C3483; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #D7BDE2; }
+.resume--prism .r-summary { font-size: 0.95rem; color: #4A4A4A; margin: 0 0 26px; line-height: 1.65; }
+.resume--prism .r-skill { background: #F5EEF8; color: #6C3483; border-radius: 12px; font-weight: 600; font-size: 0.72rem; }
+.resume--prism .r-exp-role { color: #1A1D21; }
+
+/* ========================
+   TEMPLATE 10: BLUEPRINT (technical)
+======================== */
+.resume--blueprint { padding: 48px 52px; background: #F4F7FB; border: 4px solid #1A5276; }
+.resume--blueprint .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: #1A5276; margin: 0 0 4px; letter-spacing: -0.02em; }
+.resume--blueprint .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #2980B9; margin: 0 0 8px; }
+.resume--blueprint .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #5D6D7E; border: 1px dashed #AEB6BF; padding: 7px 12px; display: inline-block; margin: 0 0 22px; }
+.resume--blueprint .r-rule { border: none; border-top: 2px dashed #AEB6BF; margin: 0 0 22px; }
+.resume--blueprint .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #fff; background: #1A5276; padding: 5px 10px; margin: 0 0 12px; display: inline-block; }
+.resume--blueprint .r-skill { background: #D6EAF8; color: #1A5276; border: 1px solid #AEB6BF; font-family: 'IBM Plex Mono', monospace; border-radius: 0; }
+.resume--blueprint .r-exp-role { color: #1A5276; }
+.resume--blueprint .r-exp-dates { font-family: 'IBM Plex Mono', monospace; color: #2980B9; }
+
+/* ========================
+   TEMPLATE 11: LINEN (minimal elegant)
+======================== */
+.resume--linen { padding: 60px 72px; font-family: 'DM Sans', sans-serif; }
+.resume--linen .r-name { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.02em; color: #1A1D21; }
+.resume--linen .r-tagline { font-size: 1rem; color: #8A8A8A; font-weight: 300; margin: 0 0 14px; font-style: italic; }
+.resume--linen .r-contact { font-size: 0.78rem; color: #9A9A9A; border-top: 1px solid #E8E4DE; border-bottom: 1px solid #E8E4DE; padding: 10px 0; margin: 0 0 30px; letter-spacing: 0.04em; }
+.resume--linen .r-section-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; font-style: italic; color: #1A1D21; margin: 0 0 14px; }
+.resume--linen .r-exp-role { font-weight: 600; color: #1A1D21; }
+.resume--linen .r-exp-dates { font-style: italic; color: #9A9A9A; font-size: 0.78rem; }
+.resume--linen .r-exp-sub { color: #8A8A8A; font-size: 0.84rem; }
+.resume--linen .r-skill { background: #F5F0E8; color: #5A4F3A; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; }
+
+/* ========================
+   TEMPLATE 12: NEON (tech/startup)
+======================== */
+.resume--neon { padding: 52px 56px; background: #0D0D0D; color: #F0F0F0; font-family: 'Space Grotesk', sans-serif; }
+.resume--neon .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; margin: 0 0 4px; color: #F0F0F0; letter-spacing: -0.03em; }
+.resume--neon .r-title { font-size: 0.82rem; color: #00E5A0; text-transform: uppercase; letter-spacing: 0.14em; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; }
+.resume--neon .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #666; border-bottom: 1px solid #222; padding-bottom: 16px; margin: 0 0 24px; }
+.resume--neon .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: #00E5A0; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #222; }
+.resume--neon .r-exp-role { color: #F0F0F0; }
+.resume--neon .r-exp-dates { color: #555; font-family: 'IBM Plex Mono', monospace; }
+.resume--neon .r-exp-sub { color: #888; }
+.resume--neon .r-bullets li { color: #B0B0B0; }
+.resume--neon .r-skill { background: #111; color: #00E5A0; border: 1px solid #1A3D2E; font-family: 'IBM Plex Mono', monospace; border-radius: 2px; }
+.resume--neon .r-summary { font-size: 0.92rem; color: #888; line-height: 1.7; margin: 0 0 24px; }
+
+/* ========================
+   TEMPLATE 13: HERALD (newspaper)
+======================== */
+.resume--herald { padding: 40px 52px; font-family: 'Libre Baskerville', serif; }
+.resume--herald .r-masthead { text-align: center; border-bottom: 4px double #1A1D21; padding-bottom: 16px; margin-bottom: 20px; }
+.resume--herald .r-name { font-family: 'Libre Baskerville', serif; font-size: 2.8rem; font-weight: 700; margin: 0; letter-spacing: -0.01em; line-height: 1.05; }
+.resume--herald .r-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.2em; color: #6B7178; margin: 6px 0 0; font-family: 'IBM Plex Mono', monospace; }
+.resume--herald .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #6B7178; text-align: center; border-bottom: 1px solid #1A1D21; padding-bottom: 12px; margin: 0 0 20px; }
+.resume--herald .r-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; column-gap: 32px; }
+.resume--herald .r-columns::before { display: none; }
+.resume--herald .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: #1A1D21; margin: 0 0 10px; padding-bottom: 4px; border-bottom: 2px solid #1A1D21; }
+.resume--herald .r-exp-role { font-family: 'Libre Baskerville', serif; font-size: 0.9rem; font-weight: 700; }
+.resume--herald .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #6B7178; }
+.resume--herald .r-bullets li { font-size: 0.84rem; line-height: 1.55; }
+.resume--herald .r-skill { background: #F5F1EB; color: #1A1D21; border: 1px solid #D9D2C6; font-family: 'IBM Plex Mono', monospace; border-radius: 0; font-size: 0.67rem; }
+
+/* ========================
+   TEMPLATE 14: COPPER (warm industrial)
+======================== */
+.resume--copper { padding: 0; }
+.resume--copper .r-header { background: #2B1810; padding: 40px 52px 28px; position: relative; overflow: hidden; }
+.resume--copper .r-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #B87333, #E8A87C, #B87333); }
+.resume--copper .r-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #F5DEB3; margin: 0 0 4px; }
+.resume--copper .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #B87333; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 10px; }
+.resume--copper .r-contact { font-size: 0.78rem; color: #A08070; margin: 0; }
+.resume--copper .r-body { padding: 36px 52px; background: #FDF8F2; }
+.resume--copper .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #B87333; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #E8D5B8; }
+.resume--copper .r-skill { background: #FBF0E4; color: #8B5A2B; border: 1px solid #E8D5B8; font-family: 'IBM Plex Mono', monospace; border-radius: 2px; }
+.resume--copper .r-exp-role { color: #2B1810; }
+.resume--copper .r-summary { font-size: 0.92rem; color: #5A4030; margin: 0 0 24px; line-height: 1.65; font-style: italic; }
+
+/* ========================
+   TEMPLATE 15: IVORY (academic)
+======================== */
+.resume--ivory { padding: 56px 64px; font-family: 'Libre Baskerville', serif; }
+.resume--ivory .r-name { font-family: 'Libre Baskerville', serif; font-size: 2.1rem; font-weight: 700; margin: 0 0 4px; color: #1A1D21; }
+.resume--ivory .r-degrees { font-size: 0.85rem; color: #5A5048; font-style: italic; margin: 0 0 10px; }
+.resume--ivory .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A7068; border-top: 2px solid #1A1D21; border-bottom: 2px solid #1A1D21; padding: 8px 0; margin: 0 0 26px; }
+.resume--ivory .r-section { margin-bottom: 22px; }
+.resume--ivory .r-section-title { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #1A1D21; margin: 0 0 10px; padding-bottom: 5px; border-bottom: 1px solid #D4CEC6; }
+.resume--ivory .r-exp-role { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 0.9rem; }
+.resume--ivory .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #7A7068; }
+.resume--ivory .r-bullets li { font-size: 0.86rem; line-height: 1.6; }
+.resume--ivory .r-skill { background: #F5F0E8; color: #3A3028; border: 1px solid #D4CEC6; font-family: 'Libre Baskerville', serif; border-radius: 2px; font-size: 0.75rem; }
+
+/* ========================
+   TEMPLATE 16: SLATE (government/legal)
+======================== */
+.resume--slate { padding: 52px 60px; background: #F8F8F6; }
+.resume--slate .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 600; margin: 0 0 4px; color: #1A1D21; }
+.resume--slate .r-title { font-size: 0.88rem; color: #4A5568; margin: 0 0 12px; font-weight: 400; }
+.resume--slate .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #6B7280; border-top: 3px solid #1A1D21; border-bottom: 3px solid #1A1D21; padding: 10px 0; margin: 0 0 28px; display: flex; justify-content: space-between; }
+.resume--slate .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #4A5568; background: #E8E8E4; padding: 6px 12px; margin: 0 0 12px 0; }
+.resume--slate .r-exp-role { color: #1A1D21; font-weight: 600; font-size: 0.9rem; }
+.resume--slate .r-exp-dates { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; }
+.resume--slate .r-skill { background: #E8E8E4; color: #2D3748; border-radius: 2px; font-size: 0.72rem; }
+
+/* ========================
+   TEMPLATE 17: GILDED (luxury)
+======================== */
+.resume--gilded { padding: 56px 64px; background: #1A160E; color: #EDE0C4; }
+.resume--gilded .r-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin: 0 0 6px; color: #D4AF37; line-height: 1.1; }
+.resume--gilded .r-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: #A08040; margin: 0 0 12px; }
+.resume--gilded .r-contact { font-size: 0.78rem; color: #8A7A5A; border-bottom: 1px solid #3A3020; padding-bottom: 16px; margin: 0 0 26px; }
+.resume--gilded .r-rule { border: none; border-top: 1px solid #D4AF37; margin: 0 0 26px; opacity: 0.4; }
+.resume--gilded .r-section-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 400; font-style: italic; color: #D4AF37; margin: 0 0 12px; padding-bottom: 5px; border-bottom: 1px solid #3A3020; }
+.resume--gilded .r-exp-role { color: #EDE0C4; }
+.resume--gilded .r-exp-dates { color: #8A7A5A; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; }
+.resume--gilded .r-exp-sub { color: #8A7A5A; }
+.resume--gilded .r-bullets li { color: #C8BCA0; font-size: 0.88rem; }
+.resume--gilded .r-skill { background: #2A220E; color: #D4AF37; border: 1px solid #4A3A1A; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
+.resume--gilded .r-summary { font-size: 0.9rem; color: #A08878; line-height: 1.7; margin: 0 0 24px; }
+
+/* ========================
+   TEMPLATE 18: GRID (modernist)
+======================== */
+.resume--grid-mod { padding: 0; font-family: 'DM Sans', sans-serif; }
+.resume--grid-mod .r-header { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 3px solid #1A1D21; }
+.resume--grid-mod .r-name-box { padding: 36px 36px; border-right: 3px solid #1A1D21; }
+.resume--grid-mod .r-contact-box { padding: 36px 36px; background: #1A1D21; }
+.resume--grid-mod .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 6px; line-height: 1.1; }
+.resume--grid-mod .r-title { font-size: 0.82rem; color: #6B7178; margin: 0; }
+.resume--grid-mod .r-contact-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #C0C8D0; line-height: 2; display: block; }
+.resume--grid-mod .r-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.resume--grid-mod .r-col { padding: 32px 36px; }
+.resume--grid-mod .r-col + .r-col { border-left: 1px solid #E8E4DE; }
+.resume--grid-mod .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #1A1D21; margin: 0 0 12px; }
+.resume--grid-mod .r-exp-role { color: #1A1D21; }
+.resume--grid-mod .r-skill { background: #F5F1EB; color: #1A1D21; border-radius: 0; border: 1px solid #D9D2C6; font-size: 0.7rem; }
+
+/* ========================
+   TEMPLATE 19: TERRA (earthy)
+======================== */
+.resume--terra { padding: 0; font-family: 'DM Sans', sans-serif; }
+.resume--terra .r-top { background: #8B4513; padding: 44px 52px 32px; }
+.resume--terra .r-name { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #FFF8F0; margin: 0 0 4px; }
+.resume--terra .r-title { font-size: 0.85rem; color: #E8C9A0; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; }
+.resume--terra .r-contact { font-size: 0.78rem; color: #C09070; margin: 0; }
+.resume--terra .r-stripe { height: 8px; background: repeating-linear-gradient(90deg, #D2691E 0, #D2691E 12px, #CD853F 12px, #CD853F 24px); }
+.resume--terra .r-body { padding: 36px 52px; background: #FBF5EE; }
+.resume--terra .r-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: #8B4513; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #D4A882; }
+.resume--terra .r-skill { background: #F5E6D8; color: #7A3B12; border-radius: 3px; font-family: 'DM Sans', sans-serif; font-size: 0.74rem; }
+.resume--terra .r-summary { font-size: 0.92rem; color: #4A3020; margin: 0 0 26px; line-height: 1.65; border-left: 3px solid #D4A882; padding-left: 14px; }
+.resume--terra .r-exp-role { color: #3A2010; }
+
+/* ========================
+   TEMPLATE 20: WAVE (creative/bold)
+======================== */
+.resume--wave { padding: 0; font-family: 'Space Grotesk', sans-serif; overflow: hidden; }
+.resume--wave .r-top { background: #0047AB; padding: 44px 52px; position: relative; }
+.resume--wave .r-top::after { content: ''; position: absolute; bottom: -20px; left: 0; right: 0; height: 40px; background: #0047AB; clip-path: ellipse(60% 100% at 50% 0%); }
+.resume--wave .r-name { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: #fff; margin: 0 0 6px; letter-spacing: -0.03em; }
+.resume--wave .r-title { font-size: 0.85rem; color: #90BDFF; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 12px; }
+.resume--wave .r-contact { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #7AAAF0; }
+.resume--wave .r-body { padding: 44px 52px 36px; background: #fff; }
+.resume--wave .r-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #0047AB; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 2px solid #E8F0FE; }
+.resume--wave .r-summary { font-size: 0.92rem; color: #3A4A5A; margin: 0 0 26px; line-height: 1.65; }
+.resume--wave .r-skill { background: #E8F0FE; color: #0047AB; border-radius: 14px; font-weight: 600; font-size: 0.72rem; }
+.resume--wave .r-exp-role { color: #1A1D21; }
+.resume--wave .r-exp-dates { font-family: 'IBM Plex Mono', monospace; color: #0047AB; font-size: 0.72rem; }
+
+

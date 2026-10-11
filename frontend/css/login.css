@@ -1,0 +1,8 @@
+body { font-family: Arial, sans-serif; background: #eef2ff; margin: 0; display: flex; min-height: 100vh; justify-content: center; align-items: center; }
+.auth-page { width: 100%; max-width: 420px; padding: 2rem; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.08); border-radius: 16px; }
+.auth-page h1 { margin-bottom: 1rem; }
+.auth-page label { display: block; margin: 0.8rem 0 0.3rem; font-weight: 600; }
+.auth-page input { width: 100%; padding: 0.9rem; border: 1px solid #d8dce8; border-radius: 10px; }
+.auth-page button { width: 100%; margin-top: 1.2rem; padding: 0.9rem; border: none; background: #4754f0; color: white; border-radius: 10px; cursor: pointer; }
+.auth-page p { margin-top: 1rem; font-size: 0.95rem; }
+.auth-page a { color: #4754f0; }

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save History — Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f4ed;
+    --paper-deep:#efeada;
+    --ink:#16191c;
+    --ink-soft:#3a3d3f;
+    --accent:#c2461b;
+    --accent-deep:#9c3814;
+    --line:#e3ddd0;
+    --line-strong:#d2cabb;
+    --muted:#8b8478;
+    --card:#fffefb;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',Arial,sans-serif;
+    background:
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(194,70,27,0.05), transparent),
+      var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+    padding:48px 20px 80px;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(194,70,27,0.05), transparent),
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(140,130,110,0.035) 28px),
+      var(--paper);
+  }
+
+  .app{
+    width:100%;
+    max-width:880px;
+    margin:0 auto;
+    animation:appIn .6s var(--ease) both;
+  }
+  @keyframes appIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ── Masthead ── */
+  .masthead{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:20px;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px;height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(32px,5vw,44px);
+    letter-spacing:-0.01em;
+    line-height:1.02;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:8px;
+    max-width:46ch;
+    line-height:1.5;
+  }
+  .top-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:11px 18px;
+    border-radius:2px;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+    background:transparent;
+    text-decoration:none;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    transition:background .25s var(--ease), color .25s var(--ease), transform .18s var(--ease);
+    white-space:nowrap;
+  }
+  .top-btn:hover{ background:var(--ink); color:var(--paper); transform:translateY(-1px); }
+  .top-btn:active{ transform:translateY(0) scale(.97); }
+  .top-btn svg{ transition:transform .25s var(--ease); }
+  .top-btn:hover svg{ transform:translateX(-3px); }
+
+  /* ── Toolbar ── */
+  .toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search-wrap{
+    flex:1;
+    min-width:240px;
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .search-wrap svg{
+    position:absolute;
+    left:13px;
+    color:var(--muted);
+    pointer-events:none;
+    transition:color .2s var(--ease);
+  }
+  .search-wrap:focus-within svg{ color:var(--accent); }
+  .toolbar input{
+    width:100%;
+    padding:12px 14px 12px 38px;
+    border:1.5px solid var(--line-strong);
+    border-radius:3px;
+    background:var(--card);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .toolbar input::placeholder{ color:#a89f90; }
+  .toolbar input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(194,70,27,0.1);
+  }
+  .action-btn{
+    padding:12px 16px;
+    border-radius:3px;
+    border:1.5px solid var(--line-strong);
+    color:var(--ink-soft);
+    background:var(--card);
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:border-color .22s var(--ease), color .22s var(--ease), transform .15s var(--ease), background .22s var(--ease);
+  }
+  .action-btn:hover{ border-color:#a33; color:#a33; }
+  .action-btn:active{ transform:scale(.96); }
+  .action-btn:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+    border-color:var(--line-strong);
+    color:var(--ink-soft);
+  }
+
+  .status{
+    font-family:'JetBrains Mono',monospace;
+    min-height:18px;
+    color:var(--muted);
+    font-size:12px;
+    margin:14px 2px 18px;
+    letter-spacing:.02em;
+  }
+
+  /* ── Archive list ── */
+  .history-list{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .history-card{
+    --i:0;
+    position:relative;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-left:none;
+    border-radius:0 4px 4px 0;
+    padding:20px 22px 20px 26px;
+    margin-left:52px;
+    margin-bottom:14px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:18px;
+    align-items:start;
+    opacity:0;
+    transform:translateX(-6px);
+    animation:cardIn .5s var(--ease) forwards;
+    animation-delay:calc(var(--i) * 65ms);
+    transition:box-shadow .35s var(--ease), border-color .3s var(--ease), transform .35s var(--ease-spring);
+  }
+  @keyframes cardIn{
+    to{ opacity:1; transform:translateX(0); }
+  }
+
+  /* index tab */
+  .history-card::before{
+    content: attr(data-index);
+    position:absolute;
+    left:-52px;
+    top:0;
+    width:40px;
+    height:100%;
+    min-height:64px;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:14px;
+    border-radius:4px 0 0 4px;
+    letter-spacing:.03em;
+    transition:background .3s var(--ease);
+  }
+
+  .history-card:hover{
+    box-shadow:0 14px 32px -18px rgba(22,25,28,0.28), 6px 0 0 -4px var(--accent);
+    border-color:var(--line-strong);
+    transform:translateX(2px);
+  }
+  .history-card:hover::before{
+    background:var(--accent-deep);
+  }
+
+  .history-card.removing{
+    animation:cardOut .35s var(--ease) forwards;
+    pointer-events:none;
+  }
+  @keyframes cardOut{
+    to{
+      opacity:0;
+      transform:translateX(18px) scale(.97);
+      margin-bottom:0;
+      max-height:0;
+      padding-top:0; padding-bottom:0;
+    }
+  }
+
+  @media (max-width:640px){
+    .history-card{ grid-template-columns:1fr; margin-left:40px; padding:18px; }
+    .history-card::before{ left:-40px; width:30px; font-size:9px; padding-top:12px; }
+    .actions{ justify-content:flex-start; }
+  }
+
+  .card-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .card-title{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-size:21px;
+    letter-spacing:-0.005em;
+    color:var(--ink);
+  }
+  .stamp{
+    font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    border-radius:2px;
+    padding:2px 6px;
+    transform:rotate(-2deg);
+    opacity:.85;
+    flex-shrink:0;
+  }
+  .meta{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .meta .dot{ opacity:.5; }
+  .summary{
+    color:var(--ink-soft);
+    line-height:1.55;
+    max-width:64ch;
+    white-space:pre-wrap;
+    font-size:14.5px;
+  }
+  .pill-row{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-top:14px;
+  }
+  .pill{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    padding:3px 9px;
+    font-size:11.5px;
+    font-family:'JetBrains Mono',monospace;
+    transition:border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+  }
+  .history-card:hover .pill{
+    border-color:var(--accent);
+    color:var(--accent-deep);
+    background:rgba(194,70,27,0.05);
+  }
+
+  .actions{
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .small-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1.5px solid var(--line-strong);
+    border-radius:3px;
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    padding:8px 13px;
+    font-weight:600;
+    font-size:12.5px;
+    font-family:'Inter',sans-serif;
+    transition:border-color .22s var(--ease), color .22s var(--ease), background .22s var(--ease), transform .15s var(--ease);
+    white-space:nowrap;
+  }
+  .small-btn svg{ flex-shrink:0; }
+  .small-btn:hover{ border-color:var(--ink); color:var(--ink); background:var(--paper-deep); transform:translateY(-1px); }
+  .small-btn:active{ transform:translateY(0) scale(.95); }
+  .small-btn.danger:hover{ border-color:#a33; color:#a33; background:#fdf3f1; }
+
+  .empty{
+    background:var(--card);
+    border:1.5px dashed var(--line-strong);
+    border-radius:4px;
+    padding:48px 32px;
+    color:var(--muted);
+    text-align:center;
+    font-size:14px;
+    opacity:0;
+    animation:cardIn .45s var(--ease) forwards;
+    margin-left:0;
+  }
+  .empty .empty-glyph{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:32px;
+    color:var(--line-strong);
+    margin-bottom:10px;
+    display:block;
+  }
+
+  /* ── Toast ── */
+  .toast{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:13px 20px;
+    border-radius:3px;
+    font-size:13.5px;
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:.01em;
+    opacity:0;
+    transform:translateY(16px) scale(.96);
+    transition:opacity .3s var(--ease),transform .3s var(--ease);
+    pointer-events:none;
+    z-index:999;
+    box-shadow:0 16px 32px -12px rgba(0,0,0,0.4);
+    border-left:3px solid var(--accent);
+  }
+  .toast.show{ opacity:1; transform:translateY(0) scale(1); }
+
+  ::selection{ background:rgba(194,70,27,0.22); }
+
+  *:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="masthead">
+    <div>
+      <div class="eyebrow">Local Archive</div>
+      <h1>Save History</h1>
+      <div class="subtitle">Every résumé version you've filed from the builder, kept on this device.</div>
+    </div>
+    <button class="top-btn" onclick="goToBuilder()" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back 
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="searchInput" type="search" placeholder="Search the archive — name, role, skill, or company">
+    </div>
+    <button class="action-btn" id="clearBtn" type="button">Clear History</button>
+  </div>
+
+  <div class="status" id="statusMsg"></div>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── Keys ── */
+  const STORAGE_KEY          = 'resume_builder_data';
+  const HISTORY_KEY          = 'resume_builder_history';
+  const TEMPLATE_STORAGE_KEY = 'resume_builder_template';
+  const COLOR_STORAGE_KEY    = 'resume_builder_color';
+
+  /* ── DOM refs ── */
+  const historyList = document.getElementById('historyList');
+  const searchInput = document.getElementById('searchInput');
+  const statusMsg   = document.getElementById('statusMsg');
+  const clearBtn    = document.getElementById('clearBtn');
+  const toastEl     = document.getElementById('toast');
+
+  /* ── Toast helper ── */
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toastEl.classList.remove('show'), 2500);
+  }
+
+  /* ── Navigation helper ── */
+  function goToBuilder(){
+    window.location.href = 'dashboard.html';
+  }
+
+  /* ── XSS escape ── */
+  function escapeHtml(value){
+    return String(value || '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  /* ── Storage helpers ── */
+  function loadHistory(){
+    try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+
+  function saveHistory(history){
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  }
+
+  /* ── Helpers ── */
+  function formatDate(value){
+    if(!value) return 'date unavailable';
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? 'date unavailable' : d.toLocaleString();
+  }
+
+  function searchableText(item){
+    const personal = item.data?.personal || {};
+    const skills = getSkills(item).join(' ');
+    const experience = (item.data?.experience || [])
+      .map(e => [e.company, e.role, e.desc].filter(Boolean).join(' ')).join(' ');
+    return [
+      item.title, item.role,
+      personal.name, personal.title, personal.summary,
+      skills, experience
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function getSkills(item){
+    return (item.data?.skills || []).map(s => s.name || s).filter(Boolean);
+  }
+
+  function getSummary(item){
+    const ps = item.data?.personal?.summary;
+    if(ps) return ps;
+    const exp = (item.data?.experience || []).find(e => e.desc);
+    return exp?.desc || 'No summary added yet.';
+  }
+
+  function indexTag(i){
+    return String(i + 1).padStart(2, '0');
+  }
+
+  /* ── Render ── */
+  function renderHistory(){
+    const query   = searchInput.value.trim().toLowerCase();
+    const history = loadHistory();
+    const filtered = query ? history.filter(i => searchableText(i).includes(query)) : history;
+
+    if(!history.length){
+      statusMsg.textContent = '';
+    } else if(!filtered.length){
+      statusMsg.textContent = '// no results match your search';
+    } else if(query){
+      statusMsg.textContent = `// ${filtered.length} of ${history.length} entries shown`;
+    } else {
+      statusMsg.textContent = `// ${history.length} ${history.length !== 1 ? 'entries' : 'entry'} filed`;
+    }
+
+    if(!filtered.length){
+      clearBtn.disabled = !history.length;
+      historyList.innerHTML = `<div class="empty">
+        <span class="empty-glyph">${history.length ? '∅' : '—'}</span>
+        ${history.length
+          ? 'No filed résumés match your search.'
+          : 'The archive is empty. Save a résumé from the builder to file your first version here.'}
+      </div>`;
+      return;
+    }
+
+    clearBtn.disabled = false;
+    historyList.innerHTML = filtered.map((item, i) => {
+      const personal = item.data?.personal || {};
+      const skills   = getSkills(item).slice(0, 6);
+      const summary  = getSummary(item);
+      const truncated = summary.length > 260 ? summary.slice(0, 260) + '…' : summary;
+      const isLatest = i === 0 && !query;
+      return `
+        <article class="history-card" style="--i:${i}" data-index="${indexTag(i)}">
+          <div>
+            <div class="card-head">
+              <div class="card-title">${escapeHtml(item.title || personal.name || 'Untitled Resume')}</div>
+              ${isLatest ? '<span class="stamp">Latest</span>' : ''}
+            </div>
+            <div class="meta">${escapeHtml(item.role || personal.title || 'No role added')}<span class="dot">·</span>${escapeHtml(formatDate(item.savedAt))}</div>
+            <div class="summary">${escapeHtml(truncated)}</div>
+            ${skills.length ? `<div class="pill-row">${skills.map(s=>`<span class="pill">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+          </div>
+          <div class="actions">
+            <button class="small-btn" data-action="load"   data-id="${escapeHtml(item.id)}" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              Edit
+            </button>
+            <button class="small-btn danger" data-action="delete" data-id="${escapeHtml(item.id)}" type="button">Delete</button>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  /* ── Click handler (event delegation) ── */
+  historyList.addEventListener('click', event => {
+    const btn = event.target.closest('[data-action]');
+    if(!btn) return;
+
+    const id     = btn.dataset.id;
+    const action = btn.dataset.action;
+    const history = loadHistory();
+    const item   = history.find(i => i.id === id);
+    if(!item) return;
+
+    if(action === 'load'){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(item.data));
+      if(item.template) localStorage.setItem(TEMPLATE_STORAGE_KEY, item.template);
+      if(item.color) localStorage.setItem(COLOR_STORAGE_KEY, item.color);
+      window.location.href = `resume-view.html?id=${encodeURIComponent(item.id)}`;
+      return;
+    }
+
+    if(action === 'delete'){
+      if(confirm('Delete this saved resume?')){
+        const card = btn.closest('.history-card');
+        if(card){
+          card.classList.add('removing');
+          card.addEventListener('animationend', () => {
+            saveHistory(history.filter(i => i.id !== id));
+            renderHistory();
+            showToast('Resume deleted.');
+          }, { once:true });
+        } else {
+          saveHistory(history.filter(i => i.id !== id));
+          renderHistory();
+          showToast('Resume deleted.');
+        }
+      }
+    }
+  });
+
+  /* ── Search (debounced for smoother typing) ── */
+  let searchDebounce;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(renderHistory, 120);
+  });
+
+  /* ── Clear all ── */
+  clearBtn.addEventListener('click', () => {
+    if(!loadHistory().length) return;
+    if(confirm('Clear all saved resume history? This cannot be undone.')){
+      const cards = Array.from(historyList.querySelectorAll('.history-card'));
+      if(cards.length){
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('removing'), i * 35);
+        });
+        setTimeout(() => {
+          saveHistory([]);
+          renderHistory();
+          showToast('History cleared.');
+        }, cards.length * 35 + 360);
+      } else {
+        saveHistory([]);
+        renderHistory();
+        showToast('History cleared.');
+      }
+    }
+  });
+
+  /* ── Init ── */
+  renderHistory();
+</script>
+</body>
+</html>
